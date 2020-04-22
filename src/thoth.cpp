@@ -161,10 +161,12 @@ int main(int argc,char** argv){
 
   // Generate new words
   cout << "\n";
-  for(int a=0;a<10;a++){
+  int MAX=12;
+  for(int iter=0;iter<10;iter++){
     string s="$";
     int len=0;
-    while(len<12){
+    string word;
+    while(len<MAX){
       vector<LikelySymbol> v=model[s];
       float p=(rand()%1000)/1000.0;
       auto i=v.begin();
@@ -175,9 +177,10 @@ int main(int argc,char** argv){
       }
       s=(*i).symbol;
       if(s=="$") break;
-      cout << s;
+      word+=s;
       len+=s.size();
     }
-    cout << "\n";
+
+    cout << word << "\n";
   }
 }
