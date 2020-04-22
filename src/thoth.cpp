@@ -1,10 +1,12 @@
 #include "./thoth.hpp"
 #include<iostream>
+#include<fstream>
 #include<iterator>
 #include<stdlib.h>
 #include<time.h>
 using namespace Thoth;
 using namespace std;
+static const int PRECISION=10000;
 
 // Constructors
 Language::Language(long seed){
@@ -26,6 +28,41 @@ void Language::print_model(){
     }
     cout << "\n";
   }
+}
+
+
+
+// Model file I/O
+void Language::save_model(string filename){
+  ofstream out;
+  out.open(filename);
+  for(auto a=this->model.begin();a!=this->model.end();a++){
+    for(auto b=a->second.begin();b!=a->second.end();b++){
+      symbol_prob p=*b;
+      out << a->first << " " << p.symbol << " " << (int)(p.prob*PRECISION) << "\n";
+    }
+  }
+  out.close();
+}
+void Language::load_model(string filename){
+  char fbuffer[256],tbuffer[256];
+  string line,from,to;
+  ifstream in;
+  int weight;
+  in.open(filename);
+  while(getline(in,line)){
+    const char* l=line.c_str();
+    sscanf(l,"%s %s %i",fbuffer,tbuffer,&weight);
+    from=string(fbuffer);
+    to=string(tbuffer);
+    auto search=this->model.find(from);
+    if(search==this->model.end()) this->model[from]={};
+    symbol_prob sp;
+    sp.symbol=to;
+    sp.prob=weight/(float)PRECISION;
+    this->model[from].push_back(sp);
+  }
+  in.close();
 }
 
 

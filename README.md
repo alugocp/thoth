@@ -6,6 +6,6 @@ LugoCorp's word generator generator
 ## Todo
 - [x] Rewrite into class structure
 - [ ] Completely novel language generation
-- [ ] Reading and writing language files
+- [x] Reading and writing language files
 - [ ] Validation and exceptions
 - [ ] Optimize algorithms
