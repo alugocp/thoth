@@ -1,11 +1,20 @@
 #include "./thoth.hpp"
-#include<stdlib.h>
-#include<stdio.h>
-#include<time.h>
 #include<iostream>
 #include<iterator>
-using namespace std;
+#include<stdlib.h>
+#include<time.h>
 using namespace Thoth;
+using namespace std;
+
+// Constructors
+Language::Language(long seed){
+  srand(seed);
+}
+Language::Language(){
+  srand(time(NULL));
+}
+
+
 
 // Debugging
 void Language::print_model(){
@@ -13,7 +22,7 @@ void Language::print_model(){
     cout << a->first << ":";
     for(auto b=a->second.begin();b!=a->second.end();b++){
       symbol_prob ls=*b;
-      cout << " (" << ls.prob*100 << "% " << ls.symbol << ")";
+      cout << " ("  << ls.symbol << " " << (int)(ls.prob*100) << "%)";
     }
     cout << "\n";
   }
@@ -150,20 +159,4 @@ string Language::new_word(int l){
     l-=s.size();
   }
   return word;
-}
-
-int main(int argc,char** argv){
-  Language lang;
-  lang.add_word("xochitl");
-  lang.add_word("nantlitl");
-  lang.add_word("tonali");
-  lang.add_word("quetzalcoatl");
-  lang.add_word("xocolatl");
-  lang.add_word("huitzilpochtli");
-  lang.generate_model();
-  lang.print_model();
-  printf("\n");
-  for(int a=0;a<10;a++){
-    cout << lang.new_word(12) << "\n";
-  }
 }

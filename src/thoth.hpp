@@ -22,18 +22,20 @@ namespace Thoth{
 
   class Language{
     public:
-    void add_word(string word);
-    string new_word(int l);
-    void generate_model();
-    void print_model();
+      Language();
+      Language(long seed);
+      void add_word(string word);
+      string new_word(int l);
+      void generate_model();
+      void print_model();
 
     private:
-    Model model;
-    Enrichment enrich;
-    vector<string> vocab;
-    void analyze_words();
-    void enrich_table();
-    void clean_table();
-    void dump_table();
+      Model model;
+      Enrichment enrich;
+      vector<string> vocab;
+      void analyze_words();
+      void enrich_table();
+      void clean_table();
+      void dump_table();
   };
 }
