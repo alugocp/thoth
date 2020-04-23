@@ -4,20 +4,14 @@ using namespace Thoth;
 using namespace std;
 
 int main(int argc,char** argv){
-  Language lang(158217114);
-  /*lang.add_word("xochitl");
-  lang.add_word("nantlitl");
-  lang.add_word("tonali");
-  lang.add_word("quetzalcoatl");
-  lang.add_word("xocolatl");
-  lang.add_word("huitzilpochtli");
-  lang.add_word("axolotl");
+  Language lang;
+  lang.load_words_file("data/latin.txt");
   lang.generate_model();
-  lang.save_model("models/nahuatl.thoth");*/
-  lang.load_model("models/nahuatl.thoth");
-  //lang.print_model();
+  //lang.load_model("models/wucoza.thoth");
+  //lang.test();
+  lang.print_model();
   printf("\n");
-  for(int a=0;a<10;a++){
-    cout << lang.new_word(12) << "\n";
+  for(int a=0;a<25;a++){
+    cout << lang.new_word(6) << "\n";
   }
 }

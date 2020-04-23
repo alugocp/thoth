@@ -4,22 +4,28 @@
 #include<iterator>
 #include<stdlib.h>
 #include<time.h>
+#include<math.h>
 using namespace Thoth;
 using namespace std;
 static const int PRECISION=10000;
 
 // Constructors
 Language::Language(long seed){
-  srand(seed);
+  this->set_seed(seed);
 }
 Language::Language(){
-  srand(time(NULL));
+  this->set_seed(time(NULL));
+}
+void Language::set_seed(long seed){
+  this->seed=seed;
+  srand(seed);
 }
 
 
 
 // Debugging
 void Language::print_model(){
+  cout << "Seed #" << this->seed << "\n";
   for(auto a=this->model.begin();a!=this->model.end();a++){
     cout << a->first << ":";
     for(auto b=a->second.begin();b!=a->second.end();b++){
@@ -75,6 +81,15 @@ void Language::generate_model(){
   this->dump_table();
 }
 void Language::clean_table(){
+  vector<string> targets=enrich["$"].after;
+  for(auto a=targets.begin();a!=targets.end();a++){
+    auto b=enrich[*a].after.begin();
+    while(b!=enrich[*a].after.end()){
+      if(*b=="$") b=enrich[*a].after.erase(b);
+      else b++;
+    }
+  }
+
   bool removed=true;
   while(removed){
     removed=false;
@@ -174,6 +189,15 @@ void Language::enrich_table(){
     else a++;
   }
 }
+void Language::load_words_file(string filename){
+  string line;
+  ifstream in;
+  in.open(filename);
+  while(getline(in,line)){
+    this->add_word(line);
+  }
+  in.close();
+}
 
 
 
@@ -196,4 +220,100 @@ string Language::new_word(int l){
     l-=s.size();
   }
   return word;
+}
+
+
+static bool is_vowel(char c){
+  return c=='a' || c=='e' || c=='i' || c=='o' || c=='u' || c=='y';
+}
+static bool is_consonant(char c){
+  return c=='y' || !is_vowel(c);
+}
+static bool approved(string a,string b){
+  if(b=="$") return true;
+  if(a=="$") return !(b.size()>1 && b[0]==b[1]);
+  int la=a.size();
+  bool vowel=is_vowel(a[la-1]);
+  if((la==1 || b.size()==1) && vowel==is_vowel(b[0])) return false;
+  int consecutive=(la>1 && is_vowel(a[la-2])==vowel)?2:1;
+  for(int i=0;i<b.size();i++){
+    if(is_vowel(b[i])==vowel) consecutive++;
+    else break;
+  }
+  return consecutive<3;
+}
+
+// testing lol
+void Language::test(){
+  char buffer[2];
+  buffer[1]=0;
+  Enrichment enrich;
+
+  // Initial population
+  for(char a='a';a<='z';a++){
+    symbol_data data;
+    data.after={};
+    data.n=1;
+    buffer[0]=a;
+    enrich[string(buffer)]=data;
+  }
+
+  // Random appends
+  for(int a=0;a<50;a++){
+    auto i=next(enrich.begin(),rand()%enrich.size());
+    int c='a'+(rand()%('z'-'a'+1));
+    buffer[0]=c;
+    if(approved(i->first,string(buffer))){
+      string s;
+      s.append(i->first);
+      s.push_back(c);
+      auto search=enrich.find(s);
+      if(search==enrich.end()){
+        symbol_data data;
+        data.after={};
+        data.n=1;
+        enrich[s]=data;
+      }
+    }
+  }
+
+  // Add random edges
+  int n=pow(enrich.size(),1.35);
+  for(int a=0;a<n;a++){
+    auto i=next(enrich.begin(),rand()%enrich.size());
+    auto j=next(enrich.begin(),rand()%enrich.size());
+    if(approved(i->first,j->first)){
+      i->second.after.push_back(j->first);
+    }
+  }
+
+  // Add begin and end
+  symbol_data joint;
+  joint.after={};
+  joint.n=1;
+  for(int a=0;a<20;a++){
+    auto i=next(enrich.begin(),rand()%enrich.size());
+    if(approved("$",i->first)){
+      joint.after.push_back(i->first);
+    }
+    i=next(enrich.begin(),rand()%enrich.size());
+    if(approved(i->first,"$")){
+      i->second.after.push_back("$");
+    }
+  }
+  enrich["$"]=joint;
+
+  // Logging
+  /*for(auto a=enrich.begin();a!=enrich.end();a++){
+    cout << a->first << " ->";
+    for(auto b=a->second.after.begin();b!=a->second.after.end();b++){
+      cout << " " << *b;
+    }
+    cout << "\n";
+  }*/
+
+  // Finalize into model
+  this->enrich=enrich;
+  this->clean_table();
+  this->dump_table();
 }

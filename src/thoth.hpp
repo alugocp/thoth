@@ -28,12 +28,16 @@ namespace Thoth{
       string new_word(int l);
       void generate_model();
       void print_model();
+      void load_words_file(string filename);
       void save_model(string filename);
       void load_model(string filename);
+      void test();
 
     private:
+      long seed;
       Model model;
       Enrichment enrich;
+      void set_seed(long seed);
       vector<string> vocab;
       void analyze_words();
       void enrich_table();
