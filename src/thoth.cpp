@@ -303,15 +303,6 @@ void Language::test(){
   }
   enrich["$"]=joint;
 
-  // Logging
-  /*for(auto a=enrich.begin();a!=enrich.end();a++){
-    cout << a->first << " ->";
-    for(auto b=a->second.after.begin();b!=a->second.after.end();b++){
-      cout << " " << *b;
-    }
-    cout << "\n";
-  }*/
-
   // Finalize into model
   this->enrich=enrich;
   this->clean_table();
