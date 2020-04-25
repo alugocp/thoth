@@ -5,7 +5,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include<math.h>
-using namespace Thoth;
+using namespace thoth;
 using namespace std;
 static const int PRECISION=10000;
 

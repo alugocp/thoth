@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace Thoth{
+namespace thoth{
 
   // Structs
   struct symbol_data{

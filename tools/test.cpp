@@ -1,6 +1,6 @@
 #include "../src/thoth.hpp"
 #include<iostream>
-using namespace Thoth;
+using namespace thoth;
 using namespace std;
 
 int main(int argc,char** argv){
