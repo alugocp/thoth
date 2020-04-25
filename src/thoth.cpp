@@ -308,3 +308,13 @@ void Language::test(){
   this->clean_table();
   this->dump_table();
 }
+void Language::rigid_test(){
+  Trie t("$");
+  for(auto a=this->vocab.begin();a!=this->vocab.end();a++){
+    t.add(*a);
+  }
+  //t.print();
+  for(int a=0;a<20;a++){
+    cout << t.walk() << "\n";
+  }
+}

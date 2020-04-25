@@ -1,3 +1,4 @@
+#include "./trie.hpp"
 #include<unordered_map>
 #include<vector>
 #include<string>
@@ -31,6 +32,9 @@ namespace thoth{
       void load_words_file(string filename);
       void save_model(string filename);
       void load_model(string filename);
+
+      // Experimental functions
+      void rigid_test();
       void test();
 
     private:
