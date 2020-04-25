@@ -12,6 +12,7 @@ namespace thoth{
       void add(string symbol);
       string walk();
       void print();
+      void condense();
 
     private:
       string symbol;

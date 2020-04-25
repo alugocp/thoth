@@ -20,6 +20,20 @@ void Trie::add(string symbol){
   if(symbol.size()>1) child->add(symbol.substr(1));
 }
 
+void Trie::condense(){
+  int n=this->children.size();
+  if(!n) return;
+  if(n==1){
+    this->symbol+=this->children[0]->symbol;
+    this->children=this->children[0]->children;
+    this->condense();
+  }else{
+    for(auto a=this->children.begin();a!=this->children.end();a++){
+      (*a)->condense();
+    }
+  }
+}
+
 string Trie::walk(){
   int n=this->children.size();
   if(!n) return "";

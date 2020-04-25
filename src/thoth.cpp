@@ -313,7 +313,8 @@ void Language::rigid_test(){
   for(auto a=this->vocab.begin();a!=this->vocab.end();a++){
     t.add(*a);
   }
-  //t.print();
+  t.condense();
+  t.print();
   for(int a=0;a<20;a++){
     cout << t.walk() << "\n";
   }
