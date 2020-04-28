@@ -19,6 +19,7 @@ namespace thoth{
       void load_model(string filename);
 
       // Experimental functions
+      void syllabic_test();
       void rigid_test();
       void test();
 

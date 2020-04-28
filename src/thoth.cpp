@@ -335,3 +335,58 @@ void Language::rigid_test(){
     cout << this->new_word(6) << "\n";
   }
 }
+
+static char random_letter(){
+  return 'a'+(rand()%('z'-'a'+1));
+}
+static char random_consonant(){
+  char c=random_letter();
+  while(!is_consonant(c)) c=random_letter();
+  return c;
+}
+static char random_vowel(){
+  char c=random_letter();
+  while(!is_vowel(c)) c=random_letter();
+  return c;
+}
+
+void Language::syllabic_test(){
+  int onset=0;
+  if(rand()%100<75){
+    onset=1;
+    if(rand()%100<25){
+      onset=2;
+    }
+  }
+  int coda=rand()%100;
+  if(coda<15) coda=0;
+  if(coda>=85) coda=100;
+
+  cout << "Seed: " << this->seed << "\n";
+  cout << "Onset: " << onset << "\n";
+  cout << "Coda: " << coda << "\n\n";
+
+  vector<string> syllables;
+  for(int a=0;a<100;a++){
+    string syllable;
+    for(int b=0;b<onset;b++){
+      if(rand()%100<70) syllable.push_back(random_consonant());
+    }
+    syllable.push_back(random_vowel());
+    if(rand()%100<coda){
+      syllable.push_back(random_consonant());
+    }
+    syllables.push_back(syllable);
+    cout << syllable << "\n";
+  }
+
+  for(int a=0;a<25;a++){
+    int l=(rand()%7)+4;
+    string word;
+    while(word.size()<l){
+      int i=rand()%syllables.size();
+      word+=syllables[i];
+    }
+    cout << l << " -> " << word << "\n";
+  }
+}
