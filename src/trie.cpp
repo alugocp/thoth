@@ -51,3 +51,26 @@ void Trie::print(){
     (*a)->print();
   }
 }
+
+void Trie::collapse(Model* m){
+  auto search=m->find(this->symbol);
+  if(search==m->end()){
+    (*m)[this->symbol]={};
+  }
+  if(this->children.size()){
+    for(auto a=this->children.begin();a!=this->children.end();a++){
+      symbol_prob prob;
+      prob.symbol=(*a)->symbol;
+      prob.prob=1;
+      (*m)[this->symbol].push_back(prob);
+    }
+  }else{
+    symbol_prob prob;
+    prob.symbol="$";
+    prob.prob=1;
+    (*m)[this->symbol].push_back(prob);
+  }
+  for(auto a=this->children.begin();a!=this->children.end();a++){
+    (*a)->collapse(m);
+  }
+}

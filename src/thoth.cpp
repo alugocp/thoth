@@ -315,7 +315,23 @@ void Language::rigid_test(){
   }
   t.condense();
   t.print();
+  cout << "\n";
   for(int a=0;a<20;a++){
     cout << t.walk() << "\n";
+  }
+  cout << "\n";
+  Model m={};
+  t.collapse(&m);
+  this->model.clear();
+  for(auto a=m.begin();a!=m.end();a++){
+    int l=a->second.size();
+    //cout << a->first << " -> " << l << "\n";
+    for(auto b=a->second.begin();b!=a->second.end();b++){
+      (*b).prob/=l;
+    }
+    this->model[a->first]=a->second;
+  }
+  for(int a=0;a<20;a++){
+    cout << this->new_word(6) << "\n";
   }
 }

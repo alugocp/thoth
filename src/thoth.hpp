@@ -1,25 +1,10 @@
 #include "./trie.hpp"
-#include<unordered_map>
-#include<vector>
-#include<string>
+#include <vector>
+#include <string>
 
 using namespace std;
 
 namespace thoth{
-
-  // Structs
-  struct symbol_data{
-    vector<string> after;
-    int n;
-  };
-  struct symbol_prob{
-    string symbol;
-    float prob;
-  };
-
-  // Type definitions
-  typedef unordered_map<string,symbol_data> Enrichment;
-  typedef unordered_map<string,vector<symbol_prob>> Model;
 
   class Language{
     public:
