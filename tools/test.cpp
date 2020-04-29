@@ -1,4 +1,4 @@
-#include "../src/thoth.hpp"
+#include "../src/language.hpp"
 #include<iostream>
 using namespace thoth;
 using namespace std;
