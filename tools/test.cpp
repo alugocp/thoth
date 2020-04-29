@@ -7,6 +7,8 @@ int main(int argc,char** argv){
   Language lang(1588185520);
   lang.novel_syllables(100);
   lang.generate_model();
+  //lang.save_model("models/choyoro.thoth");
+  //lang.load_model("models/choyoro.thoth");
   lang.print_model();
   cout << "\n";
   for(int a=0;a<25;a++){

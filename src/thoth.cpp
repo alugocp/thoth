@@ -49,7 +49,7 @@ Language::Language(){
   this->set_seed(time(NULL));
 }
 void Language::set_seed(long seed){
-  populate_banned();// DEBUGGING
+  populate_banned();// TODO
   this->seed=seed;
   srand(seed);
   this->onset=0;
@@ -77,13 +77,16 @@ void Language::print_model(){
 
 
 // Model file I/O
-/*void Language::save_model(string filename){
+void Language::save_model(string filename){
   ofstream out;
   out.open(filename);
   for(auto a=this->model.begin();a!=this->model.end();a++){
-    for(auto b=a->second.begin();b!=a->second.end();b++){
-      symbol_prob p=*b;
-      out << a->first << " " << p.symbol << " " << (int)(p.prob*PRECISION) << "\n";
+    markov_node node=a->second;
+    for(auto b=node.followers.begin();b!=node.followers.end();b++){
+      out << a->first << " 0 " << (*b) << "\n";
+    }
+    for(auto b=node.suffixes.begin();b!=node.suffixes.end();b++){
+      out << a->first << " 1 " << (*b) << "\n";
     }
   }
   out.close();
@@ -92,24 +95,29 @@ void Language::load_model(string filename){
   char fbuffer[256],tbuffer[256];
   string line,from,to;
   ifstream in;
-  int weight;
+  int suffix;
   in.open(filename);
   while(getline(in,line)){
     const char* l=line.c_str();
-    sscanf(l,"%s %s %i",fbuffer,tbuffer,&weight);
+    sscanf(l,"%s %i %s",fbuffer,&suffix,tbuffer);
     from=string(fbuffer);
     to=string(tbuffer);
     auto search=this->model.find(from);
-    if(search==this->model.end()) this->model[from]={};
-    symbol_prob sp;
-    sp.symbol=to;
-    sp.prob=weight/(float)PRECISION;
-    this->model[from].push_back(sp);
+    if(search==this->model.end()){
+      markov_node m;
+      m.followers={};
+      m.suffixes={};
+      this->model[from]=m;
+    }
+    if(suffix) this->model[from].suffixes.push_back(to);
+    else this->model[from].followers.push_back(to);
   }
   in.close();
 }
-*/
 
+
+
+// TODO
 static bool is_okay(string s,char c){
   for(int a=0;a<banned[c].size();a++){
     if(banned[c][a]==s) return false;
@@ -143,6 +151,7 @@ static string word_to_string(string word){
   }
   return real;
 }
+
 
 
 // Model generation
