@@ -51,26 +51,29 @@ void Language::save_model(string filename){
   out.open(filename);
   for(auto a=this->model.begin();a!=this->model.end();a++){
     markov_node node=a->second;
-    for(auto b=node.followers.begin();b!=node.followers.end();b++){
-      out << a->first << " 0 " << (*b) << "\n";
-    }
+    out << "s " << a->first;
     for(auto b=node.suffixes.begin();b!=node.suffixes.end();b++){
-      out << a->first << " 1 " << (*b) << "\n";
+      out << " " << (*b);
     }
+    out << "\nf " << a->first;
+    for(auto b=node.followers.begin();b!=node.followers.end();b++){
+      out << " " << (*b);
+    }
+    out << "\n";
   }
+
   out.close();
 }
 void Language::load_model(string filename){
-  char fbuffer[256],tbuffer[256];
-  string line,from,to;
+  string line,from;
+  char buffer[50];
   ifstream in;
-  int suffix;
+  char type;
   in.open(filename);
   while(getline(in,line)){
     const char* l=line.c_str();
-    sscanf(l,"%s %i %s",fbuffer,&suffix,tbuffer);
-    from=string(fbuffer);
-    to=string(tbuffer);
+    sscanf(l,"%c %s",&type,buffer);
+    from=string(buffer);
     auto search=this->model.find(from);
     if(search==this->model.end()){
       markov_node m;
@@ -78,8 +81,14 @@ void Language::load_model(string filename){
       m.suffixes={};
       this->model[from]=m;
     }
-    if(suffix) this->model[from].suffixes.push_back(to);
-    else this->model[from].followers.push_back(to);
+
+    int i=from.size()+2;
+    while(i<line.size() && sscanf(l+i," %s",buffer)){
+      string next=string(buffer);
+      if(type=='s') this->model[from].suffixes.push_back(next);
+      else this->model[from].followers.push_back(next);
+      i+=next.size()+1;
+    }
   }
   in.close();
 }

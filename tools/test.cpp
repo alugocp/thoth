@@ -12,7 +12,7 @@ int main(int argc,char** argv){
   //lang.load_model("models/choyoro.thoth");
   lang.print_model();
   cout << "\n";
-  for(int a=0;a<25;a++){
+  for(int a=0;a<250;a++){
     cout << lang.new_word(5) << "\n";
   }
 }
