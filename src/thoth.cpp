@@ -385,7 +385,8 @@ void Language::syllabic_test(){
     string word;
     while(word.size()<l){
       int i=rand()%syllables.size();
-      word+=syllables[i];
+      if(word[word.size()-1]==syllables[i][0]) word+=syllables[i].substr(1);
+      else word+=syllables[i];
     }
     cout << l << " -> " << word << "\n";
   }

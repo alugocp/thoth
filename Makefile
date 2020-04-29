@@ -1,5 +1,5 @@
 
-all: clean test
+all: clean novel
 
 clean:
 	rm -rf bin
@@ -12,6 +12,9 @@ thoth:
 test: thoth
 	g++ -std=c++11 -c tools/test.cpp -o bin/test.o
 	g++ -std=c++11 bin/test.o bin/thoth.o bin/trie.o -o bin/test
+
+novel:
+	g++ -std=c++11 tools/novel.cpp -o bin/novel
 
 cli: thoth
 	echo "CLI"
