@@ -13,7 +13,7 @@ namespace thoth{
   // Language generation
   bool is_okay(string s,char c);
   bool is_legal(string s,string s1);
-  char random_okay(string s,vector<char> set);
+  char random_okay(string s,vector<char_prob> set);
   string word_to_string(string word);
 
   // Initialization

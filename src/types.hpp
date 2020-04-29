@@ -20,6 +20,10 @@ namespace thoth{
     vector<string> followers;
     vector<string> suffixes;
   };
+  struct char_prob{
+    char symbol;
+    int prob;
+  };
 
   // Type definitions
   //typedef unordered_map<string,symbol_data> Enrichment;

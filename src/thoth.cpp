@@ -20,12 +20,22 @@ bool thoth::is_legal(string s,string s1){
   }
   return true;
 }
-char thoth::random_okay(string s,vector<char> set){
-  vector<char> ok;
+char thoth::random_okay(string s,vector<char_prob> set){
+  int n=0;
+  vector<char_prob> ok;
   for(int a=0;a<set.size();a++){
-    if(thoth::is_okay(s,set[a])) ok.push_back(set[a]);
+    if(thoth::is_okay(s,set[a].symbol)){
+      ok.push_back(set[a]);
+      n+=set[a].prob;
+    }
   }
-  return ok[rand()%ok.size()];
+  int i=0;
+  int a=rand()%n;
+  while(a>0){
+    a-=ok[i].prob;
+    if(a>0) i++;
+  }
+  return ok[i].symbol;
 }
 string thoth::word_to_string(string word){
   string real;

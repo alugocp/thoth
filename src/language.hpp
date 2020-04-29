@@ -31,7 +31,9 @@ namespace thoth{
       long seed;
       Model model;
       vector<string> syllables;
-      void set_seed(long seed);
+      void initialize(long seed);
+      vector<char_prob> consonants;
+      vector<char_prob> vowels;
       //vector<string> vocab;
       //void analyze_words();
       //void enrich_table();

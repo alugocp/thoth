@@ -8,30 +8,42 @@
 using namespace thoth;
 using namespace std;
 
-static const vector<char> consonants={'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z','{','}'};
-static const vector<char> vowels={'a','e','i','o','u','y'};
+static const vector<char> all_consonants={'b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z','{','}'};
+static const vector<char> all_vowels={'a','e','i','o','u','y'};
 
 // Constructors
 Language::Language(long seed){
-  this->set_seed(seed);
+  this->initialize(seed);
 }
 Language::Language(){
-  this->set_seed(time(NULL));
+  this->initialize(time(NULL));
 }
-void Language::set_seed(long seed){
+void Language::initialize(long seed){
   this->seed=seed;
   srand(seed);
   this->onset=0;
   if(rand()%100<75){
-    this->onset=1;
-    if(rand()%100<25){
-      this->onset=2;
-    }
+    if(rand()%100<25) this->onset=2;
+    else this->onset=1;
   }
   int coda=rand()%100;
-  if(coda<15) coda=0;
-  if(coda>=85) coda=100;
-  this->coda=coda;
+  this->coda=(coda<15?0:(coda>=85?100:coda));
+
+  // Character distribution
+  this->vowels={};
+  this->consonants={};
+  for(int a=0;a<all_consonants.size();a++){
+    char_prob p;
+    p.symbol=all_consonants[a];
+    p.prob=1;
+    this->consonants.push_back(p);
+  }
+  for(int a=0;a<all_vowels.size();a++){
+    char_prob p;
+    p.symbol=all_vowels[a];
+    p.prob=1;
+    this->vowels.push_back(p);
+  }
 }
 
 
@@ -139,12 +151,12 @@ void Language::novel_syllables(int n){
     string s;
     for(int b=0;b<this->onset;b++){
       if(rand()%100<70){
-        s+=random_okay(s,consonants);
+        s+=random_okay(s,this->consonants);
       }
     }
-    s+=random_okay(s,vowels);
+    s+=random_okay(s,this->vowels);
     if(rand()%100<this->coda){
-      s+=random_okay(s,consonants);
+      s+=random_okay(s,this->consonants);
     }
     this->syllables.push_back(s);
   }
