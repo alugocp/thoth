@@ -1,3 +1,4 @@
+#include <unordered_map>
 #include <vector>
 #include <iostream>
 #include <string>
@@ -5,74 +6,108 @@
 #include <time.h>
 using namespace std;
 
-struct piece{
-  vector<int> groups;
-  string symbol;
-};
-class Group{
-  public:
-    vector<string> symbols;
-    int restriction;
-    Group(int restriction,vector<string> symbols){
-      this->restriction=restriction;
-      this->symbols=symbols;
-    }
-};
+unordered_map<string,vector<string>> groups;
 
-typedef vector<struct piece> Syllable;
-
-vector<Group*> groups;
-
-struct piece get_piece(string symbol){
-  struct piece s;
-  s.symbol=symbol;
-  s.groups={};
-  for(int a=0;a<groups.size();a++){
-    for(int b=0;b<groups[a]->symbols.size();b++){
-      if(groups[a]->symbols[b]==symbol){
-        s.groups.push_back(a);
-        break;
-      }
+bool okay(string s,string s1){
+  vector<string> prohibited=groups[s1.substr(0,1)];
+  if(s1.size()>=2){
+    string sub=s1.substr(0,2);
+    if(sub=="ch" || sub=="sh"){
+      prohibited=groups[sub];
     }
   }
-  return s;
+  for(auto a=prohibited.begin();a!=prohibited.end();a++){
+    int l=(*a).size();
+    if(s.size()>=l && s.substr(s.size()-l,l)==*a){
+      return false;
+    }
+  }
+  return true;
 }
 
-bool okay(Syllable s,piece c){
-  for(int a=0;a<c.groups.size();a++){
-    int res=groups[c.groups[a]]->restriction;
-    if(s.size()>=res){
-      int consec=0;
-      for(int b=0;b<res;b++){
-        piece p1=s[s.size()-b-1];
-        for(int d=0;d<p1.groups.size();d++){
-          if(p1.groups[d]==c.groups[a]){
-            consec++;
-            break;
-          }
-        }
-      }
-      if(consec==res) return false;
+int num_chars(string s){
+  int i=0;
+  int n=0;
+  while(i<s.size()){
+    if(s[i]=='c' || s[i]=='s'){
+      if(s.size()>i+1 && s[i+1]=='h') i++;
     }
+    i++;
+    n++;
+  }
+  return n;
+}
+string get_char(int n,string s,int* index){
+  int i=0;
+  while(n){
+    if(s[i]=='c' || s[i]=='s'){
+      if(s.size()>i+1 && s[i+1]=='h') i++;
+    }
+    i++;
+    n--;
+  }
+  int l=1;
+  *index=i;
+  if(s.size()>i+1 && (s[i]=='s' || s[i]=='c') && s[i+1]=='h') l=2;
+  return s.substr(i,l);
+}
+
+void populate_groups(){
+	groups["w"]={"w","x","q"};
+	groups["q"]={"g","q","j","z","ch","sh","v","f","x","q","k","j","y","q","w","x","q"};
+	groups["p"]={"b","p"};
+	groups["c"]={"cc","ck","kc","kk"};
+	groups["k"]={"q","k","cc","ck","kc","kk"};
+	groups["d"]={"bb","bd","db","dd"};
+	groups["g"]={"g","q","j","z","ch","sh","v","f","x"};
+	groups["x"]={"g","q","j","z","ch","sh","v","f","x","w","x","q"};
+	groups["f"]={"g","q","j","z","ch","sh","v","f","x"};
+	groups["a"]={"aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	groups["m"]={"nn","nm","mn","mm"};
+	groups["v"]={"g","q","j","z","ch","sh","v","f","x"};
+	groups["h"]={"h"};
+	groups["y"]={"j","y","q"};
+	groups["z"]={"g","q","j","z","ch","sh","v","f","x"};
+	groups["o"]={"oo","ou","uo","uu","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	groups["e"]={"ii","ie","ei","ee","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	groups["n"]={"nn","nm","mn","mm"};
+	groups["b"]={"bb","bd","db","dd","b","p"};
+	groups["sh"]={"g","q","j","z","ch","sh","v","f","x"};
+	groups["u"]={"oo","ou","uo","uu","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	groups["i"]={"ii","ie","ei","ee","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	groups["j"]={"g","q","j","z","ch","sh","v","f","x","j","y","q"};
+	groups["ch"]={"g","q","j","z","ch","sh","v","f","x"};
+}
+
+string random_okay(string s,vector<string> set){
+  vector<string> ok;
+  for(auto s1=set.begin();s1!=set.end();s1++){
+    if(!s.size() || okay(s,*s1)) ok.push_back(*s1);
+  }
+  if(!ok.size()){
+    cout << "Uh oh\n";
+    exit(1);
+  }
+  return ok[rand()%ok.size()];
+}
+
+bool syllabic_okay(string s,string s1){
+  if(!s.size()) return true;
+  int i=0;
+  int n=num_chars(s1);
+  if(n>3) n=3;
+  for(int a=0;a<n;a++){
+    string current=get_char(a,s1,&i);
+    string prefix=s;
+    if(i) prefix+=s1.substr(0,i);
+    if(!okay(prefix,current)) return false;
   }
   return true;
 }
 
 int main(int argc,char** argv){
 
-  // Populate groups
-  groups.push_back(new Group(2,{"i","e"}));
-  groups.push_back(new Group(2,{"o","u"}));
-  groups.push_back(new Group(3,{"a","e","i","o","u"}));
-  groups.push_back(new Group(1,{"g","q","j","z","ch","sh","v","f","x"}));
-  groups.push_back(new Group(2,{"n","m"}));
-  groups.push_back(new Group(2,{"b","d"}));
-  groups.push_back(new Group(1,{"q","k"}));
-  groups.push_back(new Group(2,{"c","k"}));
-  groups.push_back(new Group(1,{"b","p"}));
-  groups.push_back(new Group(1,{"j","y"}));
-  groups.push_back(new Group(1,{"w","x","q"}));
-  groups.push_back(new Group(1,{"h"}));
+  populate_groups();
 
   // Pick and display random seed
   long seed=time(NULL);
@@ -98,60 +133,40 @@ int main(int argc,char** argv){
   vector<string> vowels={"a","e","i","o","u","y"};
 
   // Make syllables
-  vector<Syllable> syllables;
+  vector<string> syllables;
   for(int a=0;a<100;a++){
-    Syllable s;
+    string s;
     for(int b=0;b<onset;b++){
       if(rand()%100<70){
-        if(s.size()){
-          vector<struct piece> next;
-          for(int c=0;c<consonants.size();c++){
-            piece p=get_piece(consonants[c]);
-            if(okay(s,p)){
-              next.push_back(p);
-            }
-          }
-          if(!next.size()){
-            cout << "Uh oh\n";
-            exit(1);
-          }
-          piece p=next[rand()%next.size()];
-          s.push_back(p);
-        }else{
-          string consonant=consonants[rand()%consonants.size()];
-          s.push_back(get_piece(consonant));
-        }
+        s+=random_okay(s,consonants);
       }
     }
-    string vowel=vowels[rand()%vowels.size()];
-    s.push_back(get_piece(vowel));
+    s+=random_okay(s,vowels);
     if(rand()%100<coda){
-      string consonant=consonants[rand()%consonants.size()];
-      s.push_back(get_piece(consonant));
+      s+=random_okay(s,consonants);
     }
     syllables.push_back(s);
-
-    // Print syllable
-    for(int b=0;b<s.size();b++) cout << s[b].symbol;
-    cout << "\n";
+    cout << s << "\n";
   }
 
   cout << "\n";
 
-  // Create words (unsafe)
+  // Create words (safe)
   for(int a=0;a<25;a++){
-    int max=(rand()%6)+4;
+    string word;
+    int max=(rand()%5)+2;
     cout << max << " -> ";
-    int l=0;
-    while(l<max){
-      int i=rand()%syllables.size();
-      for(int b=0;b<syllables[i].size();b++){
-        string str=syllables[i][b].symbol;
-        l+=str.size();
-        cout << str;
+    while(word.size()<max){
+      vector<string> next;
+      for(int a=0;a<syllables.size();a++){
+        if(syllabic_okay(word,syllables[a])){
+          next.push_back(syllables[a]);
+        }
       }
+      int i=rand()%next.size();
+      word+=next[i];
     }
-    cout << "\n";
+    cout << word << "\n";
   }
 
   return 0;
