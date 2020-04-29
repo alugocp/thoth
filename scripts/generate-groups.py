@@ -3,7 +3,7 @@ groups=[
     (2,["i","e"]),
     (2,["o","u"]),
     (3,["a","e","i","o","u"]),
-    (1,["g","q","j","z","ch","sh","v","f","x"]),
+    (1,["g","q","j","z","{","}","v","f","x"]),
     (2,["n","m"]),
     (2,["b","d"]),
     (1,["q","k"]),
@@ -28,12 +28,12 @@ model={}
 for l in groups:
     possible=recurse(l[1],l[1],l[0]-1)
     for s in l[1]:
-        if not s in model:
-            model[s]=[]
+        if not s in model: model[s]=[]
         model[s].extend(possible)
 
 # C code generation
-print("void populate_groups(){")
+print("unordered_map<char,vector<string>> banned;")
+print("void populate_banned(){")
 for m in model:
-    print("\tgroups[\"%s\"]={\"%s\"};"%(m,"\",\"".join(model[m])))
-print("}")
+    print("\tbanned['%s']={\"%s\"};"%(m,"\",\"".join(model[m])))
+print("};")
