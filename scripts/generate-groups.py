@@ -36,4 +36,4 @@ print("unordered_map<char,vector<string>> banned;")
 print("void populate_banned(){")
 for m in model:
     print("\tbanned['%s']={\"%s\"};"%(m,"\",\"".join(model[m])))
-print("};")
+print("}")

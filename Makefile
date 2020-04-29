@@ -6,11 +6,13 @@ clean:
 	mkdir -p bin
 
 thoth:
-	g++ -std=c++11 -c src/language.cpp -lm -o bin/thoth.o
+	g++ -std=c++11 -c src/language.cpp -lm -o bin/language.o
+	g++ -std=c++11 -c src/thoth.cpp -o bin/thoth.o
+	ld -relocatable bin/language.o bin/thoth.o -o bin/thoth.so
 
 test: thoth
 	g++ -std=c++11 -c tools/test.cpp -o bin/test.o
-	g++ -std=c++11 bin/test.o bin/thoth.o -o bin/test
+	g++ bin/test.o bin/thoth.so -o bin/test
 
 cli: thoth
 	echo "CLI"

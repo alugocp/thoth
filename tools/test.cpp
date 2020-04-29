@@ -1,9 +1,10 @@
-#include "../src/language.hpp"
+#include "../src/thoth.hpp"
 #include<iostream>
 using namespace thoth;
 using namespace std;
 
 int main(int argc,char** argv){
+  init();
   Language lang(1588185520);
   lang.novel_syllables(100);
   lang.generate_model();

@@ -1,3 +1,7 @@
+#define THOTH_LANGUAGE
+#ifndef THOTH
+  #include "./thoth.hpp"
+#endif
 #ifndef THOTH_TYPES
   #include "./types.hpp"
 #endif
