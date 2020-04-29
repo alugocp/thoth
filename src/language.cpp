@@ -54,6 +54,11 @@ void Language::print_model(){
   cout << "Onset: " << this->onset << "\n";
   cout << "Coda: " << this->coda << "\n";
 }
+void Language::print_syllables(){
+  for(int a=0;a<syllables.size();a++){
+    cout << syllables[a] << "\n";
+  }
+}
 
 
 

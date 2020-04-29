@@ -5,7 +5,11 @@ static unordered_map<char,vector<string>> banned;
 // Language generation
 bool thoth::is_okay(string s,char c){
   for(int a=0;a<banned[c].size();a++){
-    if(banned[c][a]==s) return false;
+    string check=banned[c][a];
+    if(check.size()<=s.size()){
+      int l=check.size();
+      if(s.substr(s.size()-l,l)==check) return false;
+    }
   }
   return true;
 }

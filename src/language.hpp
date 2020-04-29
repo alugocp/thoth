@@ -21,6 +21,7 @@ namespace thoth{
       string new_word(int l);
       void generate_model();
       void print_model();
+      void print_syllables();
       //void load_words_file(string filename);
       void save_model(string filename);
       void load_model(string filename);
