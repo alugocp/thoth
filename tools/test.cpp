@@ -7,9 +7,8 @@ int main(int argc,char** argv){
   init();
   Language lang;
   lang.novel_syllables(50);
+  //lang.load_words_file("data/latin.txt");
   lang.generate_model();
-  //lang.save_model("models/choyoro.thoth");
-  //lang.load_model("models/choyoro.thoth");
   lang.print_model();
   //lang.print_syllables();
   cout << "\n";

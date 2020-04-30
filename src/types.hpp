@@ -1,7 +1,7 @@
+#define THOTH_TYPES
 #include <unordered_map>
 #include <vector>
 #include <string>
-#define THOTH_TYPES
 
 using namespace std;
 

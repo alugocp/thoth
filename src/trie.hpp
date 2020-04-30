@@ -1,4 +1,4 @@
-#include "./types.hpp"
+#define THOTH_TRIE
 #include <vector>
 #include <string>
 
@@ -8,16 +8,17 @@ namespace thoth{
 
   class Trie{
     public:
+      Trie();
       Trie(string symbol);
+      void get_nodes(vector<string>* nodes);
       void add(string symbol);
-      string walk();
-      void print();
       void condense();
-      void collapse(Model* m);
+      void print();
 
     private:
       vector<Trie*> children;
       string symbol;
+      bool last;
   };
 
 }

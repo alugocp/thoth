@@ -2,6 +2,9 @@
 #ifndef THOTH
   #include "./thoth.hpp"
 #endif
+#ifndef THOTH_TRIE
+  #include "./trie.hpp"
+#endif
 #ifndef THOTH_TYPES
   #include "./types.hpp"
 #endif
@@ -16,30 +19,27 @@ namespace thoth{
     public:
       Language();
       Language(long seed);
-      //void add_word(string word);
-      void novel_syllables(int n);
-      string new_word(int l);
-      void generate_model();
       void print_model();
       void print_syllables();
-      //void load_words_file(string filename);
+      string new_word(int l);
+      void generate_model();
+      void novel_syllables(int n);
+      void process_words();
       void save_model(string filename);
       void load_model(string filename);
+      void load_words_file(string filename);
+      void add_word(string word);
 
     private:
       int coda;
       int onset;
       long seed;
+      Trie vocab;
       Model model;
       vector<string> syllables;
       void initialize(long seed);
       void distribute_chars();
       vector<char_prob> consonants;
       vector<char_prob> vowels;
-      //vector<string> vocab;
-      //void analyze_words();
-      //void enrich_table();
-      //void clean_table();
-      //void dump_table();
   };
 }

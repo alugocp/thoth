@@ -123,6 +123,7 @@ void Language::load_model(string filename){
 
 // Model generation
 void Language::generate_model(){
+  // Create longer syllables from those below max ban length
   for(int a=0;a<this->syllables.size();a++){
     string s=this->syllables[a];
     if(s.size()<MAX){
@@ -141,6 +142,7 @@ void Language::generate_model(){
       this->syllables.push_back(novel);
     }
   }
+  // Calculate syllable followers and add to markov model
   this->model.clear();
   for(int a=0;a<this->syllables.size();a++){
     string s=this->syllables[a];
@@ -160,6 +162,10 @@ void Language::generate_model(){
     }
   }
 }
+
+
+
+// Novel generation pipeline
 void Language::novel_syllables(int n){
   for(int a=0;a<n;a++){
     string s;
@@ -175,124 +181,32 @@ void Language::novel_syllables(int n){
     this->syllables.push_back(s);
   }
 }
-/*void Language::clean_table(){
-  vector<string> targets=enrich["$"].after;
-  for(auto a=targets.begin();a!=targets.end();a++){
-    auto b=enrich[*a].after.begin();
-    while(b!=enrich[*a].after.end()){
-      if(*b=="$") b=enrich[*a].after.erase(b);
-      else b++;
-    }
-  }
-
-  bool removed=true;
-  while(removed){
-    removed=false;
-    auto a=this->enrich.begin();
-    while(a!=this->enrich.end()){
-      auto b=a->second.after.begin();
-      while(b!=a->second.after.end()){
-        string key=*b;
-        if(key==a->first) b=a->second.after.erase(b);
-        else{
-          auto search=this->enrich.find(key);
-          if(search==this->enrich.end()) b=a->second.after.erase(b);
-          else b++;
-        }
-      }
-      if(!a->second.after.size()){
-        a=this->enrich.erase(a);
-        removed=true;
-      }else a++;
-    }
-  }
-}
-void Language::dump_table(){
-  this->model.clear();
-  for(auto a=this->enrich.begin();a!=this->enrich.end();a++){
-    float p=1.0/a->second.after.size();
-    vector<symbol_prob> v;
-    for(int b=0;b<a->second.after.size();b++){
-      bool added=false;
-      for(int c=0;c<v.size();c++){
-        if(v[c].symbol==a->second.after[b]){
-          v[c].prob+=p;
-          added=true;
-          break;
-        }
-      }
-      if(!added){
-        symbol_prob ls;
-        ls.symbol=a->second.after[b];
-        ls.prob=p;
-        v.push_back(ls);
-      }
-    }
-    this->model[a->first]=v;
-  }
-}*/
 
 
 
 // Sample data pipeline
-/*void Language::add_word(string word){
-  this->vocab.push_back(word);
+void Language::add_word(string word){
+  vocab.add(word);
 }
-void Language::analyze_words(){
-  this->enrich.clear();
-  unordered_map<string,vector<string>> substrs;
-  for(auto w=this->vocab.begin();w!=this->vocab.end();w++){
-    string word=*w;
-    substrs.clear();
-    substrs["$"]={};
-
-    // Get substrings
-    for(int l=1;l<word.size()-2;l++){
-      for(int a=0;a<=word.size()-l;a++){
-        string sub=word.substr(a,l);
-        auto search=substrs.find(sub);
-        if(search==substrs.end()) substrs[sub]={};
-        if(!a) substrs["$"].push_back(sub);
-        if(a+l+l<word.size()-1) substrs[sub].push_back(word.substr(a+l,l));
-        else if(a+l==word.size()) substrs[sub].push_back("$");
-        else substrs[sub].push_back(word.substr(a+l));
-      }
-    }
-
-    // Dump into enrichment table
-    for(auto i=substrs.begin();i!=substrs.end();i++){
-      string s=i->first;
-      vector<string> followers=substrs[s];
-      auto search=this->enrich.find(s);
-      if(search==this->enrich.end()){
-        symbol_data data;
-        data.after=followers;
-        data.n=1;
-        enrich[s]=data;
-      }else{
-        vector<string> *dest=&(search->second.after);
-        dest->insert(dest->end(),make_move_iterator(followers.begin()),make_move_iterator(followers.end()));
-        search->second.n++;
-      }
-    }
-  }
-}
-void Language::enrich_table(){
-  auto a=this->enrich.begin();
-  while(a!=enrich.end()){
-    if(a->first.size()>1 && a->second.n==1) a=this->enrich.erase(a);
-    else a++;
-  }
+void Language::process_words(){
+  //vocab.print();
+  vocab.condense();
+  vocab.get_nodes(&syllables);
 }
 void Language::load_words_file(string filename){
   string line;
   ifstream in;
   in.open(filename);
-  while(getline(in,line)){
-    this->add_word(line);
+  if(!in.is_open()){
+    cout << "Uh oh\n";
+    exit(1);
   }
+  while(getline(in,line)){
+    add_word(line);
+  }
+  process_words();
   in.close();
-}*/
+}
 
 
 
