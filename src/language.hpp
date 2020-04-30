@@ -33,6 +33,7 @@ namespace thoth{
       Model model;
       vector<string> syllables;
       void initialize(long seed);
+      void distribute_chars();
       vector<char_prob> consonants;
       vector<char_prob> vowels;
       //vector<string> vocab;

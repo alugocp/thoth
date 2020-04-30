@@ -13,10 +13,14 @@ static const vector<char> all_vowels={'a','e','i','o','u','y'};
 
 // Constructors
 Language::Language(long seed){
-  this->initialize(seed);
+  initialize(seed);
+  distribute_chars();
 }
 Language::Language(){
-  this->initialize(time(NULL));
+  long seed=time(NULL);
+  seed+=(seed%1000000)*10000;
+  initialize(seed);
+  distribute_chars();
 }
 void Language::initialize(long seed){
   this->seed=seed;
@@ -28,14 +32,19 @@ void Language::initialize(long seed){
   }
   int coda=rand()%100;
   this->coda=(coda<15?0:(coda>=85?100:coda));
-
-  // Character distribution
+}
+void Language::distribute_chars(){
   this->vowels={};
   this->consonants={};
   for(int a=0;a<all_consonants.size();a++){
+    char c=all_consonants[a];
     char_prob p;
-    p.symbol=all_consonants[a];
-    p.prob=1;
+    p.symbol=c;
+    p.prob=8;
+    if(c=='v' || c=='w' || c=='y' || c=='{') p.prob=4;
+    if(c=='x' || c=='z' || c=='q') p.prob=2;
+    if(rand()%100<13) p.prob*=2;
+    else if(rand()%100<17) p.prob/=2;
     this->consonants.push_back(p);
   }
   for(int a=0;a<all_vowels.size();a++){
