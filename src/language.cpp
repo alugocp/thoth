@@ -3,7 +3,6 @@
 #include<fstream>
 #include<iterator>
 #include<stdlib.h>
-#include<time.h>
 #include<math.h>
 using namespace thoth;
 using namespace std;
@@ -13,24 +12,22 @@ static const vector<char> all_vowels={'a','e','i','o','u','y'};
 
 // Constructors
 Language::Language(long seed){
-  initialize(seed);
+  this->rand=new Rand(seed);
+  initialize();
   distribute_chars();
 }
 Language::Language(){
-  long seed=time(NULL);
-  seed+=(seed%1000000)*10000;
-  initialize(seed);
+  this->rand=new Rand();
+  initialize();
   distribute_chars();
 }
-void Language::initialize(long seed){
-  this->seed=seed;
-  srand(seed);
+void Language::initialize(){
   this->onset=0;
-  if(rand()%100<75){
-    if(rand()%100<25) this->onset=2;
+  if((this->rand->next())%100<75){
+    if((this->rand->next())%100<25) this->onset=2;
     else this->onset=1;
   }
-  int coda=rand()%100;
+  int coda=(this->rand->next())%100;
   this->coda=(coda<15?0:(coda>=85?100:coda));
 }
 void Language::distribute_chars(){
@@ -43,8 +40,8 @@ void Language::distribute_chars(){
     p.prob=8;
     if(c=='v' || c=='w' || c=='y' || c=='{') p.prob=4;
     if(c=='x' || c=='z' || c=='q') p.prob=2;
-    if(rand()%100<13) p.prob*=2;
-    else if(rand()%100<17) p.prob/=2;
+    if((this->rand->next())%100<13) p.prob*=2;
+    else if((this->rand->next())%100<17) p.prob/=2;
     this->consonants.push_back(p);
   }
   for(int a=0;a<all_vowels.size();a++){
@@ -59,7 +56,7 @@ void Language::distribute_chars(){
 
 // Debugging
 void Language::print_model(){
-  cout << "Language #" << this->seed << "\n";
+  cout << "Language #" << this->rand->get_seed() << "\n";
   cout << "Onset: " << this->onset << "\n";
   cout << "Coda: " << this->coda << "\n";
 }
@@ -136,7 +133,7 @@ void Language::generate_model(){
           }
         }
         if(nexts.size()){
-          novel+=nexts[rand()%nexts.size()];
+          novel+=nexts[(this->rand->next())%nexts.size()];
         }
       }
       this->syllables.push_back(novel);
@@ -170,12 +167,12 @@ void Language::novel_syllables(int n){
   for(int a=0;a<n;a++){
     string s;
     for(int b=0;b<this->onset;b++){
-      if(rand()%100<70){
+      if((this->rand->next())%100<70){
         s+=random_okay(s,this->consonants);
       }
     }
     s+=random_okay(s,this->vowels);
-    if(rand()%100<this->coda){
+    if((this->rand->next())%100<this->coda){
       s+=random_okay(s,this->consonants);
     }
     this->syllables.push_back(s);
@@ -212,7 +209,7 @@ void Language::load_words_file(string filename){
 
 // Word generation
 string Language::new_word(int l){
-  int i=rand()%this->model.size();
+  int i=(this->rand->next())%this->model.size();
   auto pair=this->model.begin();
   while(i--) pair++;
   string word=pair->first;
@@ -221,9 +218,9 @@ string Language::new_word(int l){
   while(word.size()<l){
     if(l-word.size()==1 || !node.followers.size()){
       if(!node.suffixes.size()) break;
-      next=node.suffixes[rand()%node.suffixes.size()];
+      next=node.suffixes[(this->rand->next())%node.suffixes.size()];
     }else{
-      next=node.followers[rand()%node.followers.size()];
+      next=node.followers[(this->rand->next())%node.followers.size()];
     }
     node=this->model[next];
     word+=next;

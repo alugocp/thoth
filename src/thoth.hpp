@@ -2,6 +2,9 @@
 #ifndef THOTH_TYPES
   #include "./types.hpp"
 #endif
+#ifndef THOTH_RAND
+  #include "./rand.hpp"
+#endif
 #ifndef THOTH_TRIE
   #include "./trie.hpp"
 #endif

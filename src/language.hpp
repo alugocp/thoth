@@ -8,6 +8,9 @@
 #ifndef THOTH_TYPES
   #include "./types.hpp"
 #endif
+#ifndef THOTH_RAND
+  #include "./rand.hpp"
+#endif
 #include <vector>
 #include <string>
 
@@ -33,11 +36,11 @@ namespace thoth{
     private:
       int coda;
       int onset;
-      long seed;
+      Rand* rand;
       Trie vocab;
       Model model;
       vector<string> syllables;
-      void initialize(long seed);
+      void initialize();
       void distribute_chars();
       vector<char_prob> consonants;
       vector<char_prob> vowels;

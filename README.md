@@ -4,10 +4,14 @@
 LugoCorp's word generator generator
 
 ## Todo
+### Launch
 - [x] Rewrite into class structure
 - [x] Completely novel language generation
 - [x] Reading and writing language files
-- [ ] Objectify pseudo-random number generation
+- [x] Objectify pseudo-random number generation
 - [ ] Create binary file format and I/O
 - [ ] Validation and exceptions
 - [ ] Optimize algorithms
+
+### Post-launch
+- [ ] Sample data pipeline
