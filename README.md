@@ -10,8 +10,8 @@ LugoCorp's word generator generator
 - [x] Reading and writing language files
 - [x] Objectify pseudo-random number generation
 - [ ] Create binary file format and I/O
-- [ ] Validation and exceptions
-- [ ] Optimize algorithms
+- [x] Validation and exceptions
 
 ### Post-launch
 - [ ] Sample data pipeline
+- [ ] Optimize algorithms

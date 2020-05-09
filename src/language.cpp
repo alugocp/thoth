@@ -23,6 +23,7 @@ Language::Language(){
 }
 void Language::initialize(){
   this->onset=0;
+  this->modeled=false;
   if((this->rand->next())%100<75){
     if((this->rand->next())%100<25) this->onset=2;
     else this->onset=1;
@@ -38,7 +39,7 @@ void Language::distribute_chars(){
     char_prob p;
     p.symbol=c;
     p.prob=8;
-    if(c=='v' || c=='w' || c=='y' || c=='{') p.prob=4;
+    if(c=='v' || c=='w' || c=='y' || c=='j' || c=='{' || c=='}') p.prob=4;
     if(c=='x' || c=='z' || c=='q') p.prob=2;
     if((this->rand->next())%100<13) p.prob*=2;
     else if((this->rand->next())%100<17) p.prob/=2;
@@ -70,8 +71,10 @@ void Language::print_syllables(){
 
 // Model file I/O
 void Language::save_model(string filename){
+  if(!modeled) throw ThothException("Cannot save an unmodeled language");
   ofstream out;
   out.open(filename);
+  if(!out.is_open()) throw ThothException("Could not write to file");
   for(auto a=this->model.begin();a!=this->model.end();a++){
     markov_node node=a->second;
     out << "s " << a->first;
@@ -92,7 +95,9 @@ void Language::load_model(string filename){
   char buffer[50];
   ifstream in;
   char type;
+  if(this->modeled) this->clear_model();
   in.open(filename);
+  if(!in.is_open()) throw ThothException("Could not read from file");
   while(getline(in,line)){
     const char* l=line.c_str();
     sscanf(l,"%c %s",&type,buffer);
@@ -120,7 +125,8 @@ void Language::load_model(string filename){
 
 // Model generation
 void Language::generate_model(){
-  // Create longer syllables from those below max ban length
+  if(this->modeled) throw ThothException("Language is already modeled");
+  if(!this->syllables.size()) throw ThothException("Cannot model a language without syllables");
   for(int a=0;a<this->syllables.size();a++){
     string s=this->syllables[a];
     if(s.size()<MAX){
@@ -158,6 +164,12 @@ void Language::generate_model(){
       }
     }
   }
+  this->modeled=true;
+}
+void Language::clear_model(){
+  this->modeled=false;
+  this->model.clear();
+  this->syllables.clear();
 }
 
 
@@ -182,7 +194,7 @@ void Language::novel_syllables(int n){
 
 
 // Sample data pipeline
-void Language::add_word(string word){
+/*void Language::add_word(string word){
   vocab.add(word);
 }
 void Language::process_words(){
@@ -203,12 +215,13 @@ void Language::load_words_file(string filename){
   }
   process_words();
   in.close();
-}
+}*/
 
 
 
 // Word generation
 string Language::new_word(int l){
+  if(!this->modeled) throw ThothException("Unmodeled languages cannot generate words");
   int i=(this->rand->next())%this->model.size();
   auto pair=this->model.begin();
   while(i--) pair++;

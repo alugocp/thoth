@@ -1,4 +1,5 @@
 #include "./thoth.hpp"
+#include <string.h>
 
 static unordered_map<char,vector<string>> banned;
 
@@ -49,6 +50,22 @@ string thoth::word_to_string(string word){
     else real.push_back(word[a]);
   }
   return real;
+}
+
+
+
+// Exceptions
+thoth::ThothException::ThothException(const char* msg){
+  size_t l=strlen(msg);
+  const char* prefix="Thoth exception (";
+  size_t pl=strlen(prefix);
+  this->msg=new char[l+pl+2];
+  strcpy(this->msg,prefix);
+  strcat(this->msg,msg);
+  strcat(this->msg,")");
+}
+const char* thoth::ThothException::what() const throw(){
+  return msg;
 }
 
 

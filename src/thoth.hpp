@@ -5,12 +5,13 @@
 #ifndef THOTH_RAND
   #include "./rand.hpp"
 #endif
-#ifndef THOTH_TRIE
+/*#ifndef THOTH_TRIE
   #include "./trie.hpp"
-#endif
+#endif*/
 #ifndef THOTH_LANGUAGE
   #include "./language.hpp"
 #endif
+#include <exception>
 
 #define MAX 3
 
@@ -26,4 +27,13 @@ namespace thoth{
   void populate_banned();
   void init();
 
+  // Exception
+  class ThothException:public exception{
+    private:
+      char* msg;
+
+    public:
+      ThothException(const char* msg);
+      virtual const char* what() const throw();
+  };
 }

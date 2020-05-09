@@ -2,15 +2,6 @@
 #ifndef THOTH
   #include "./thoth.hpp"
 #endif
-#ifndef THOTH_TRIE
-  #include "./trie.hpp"
-#endif
-#ifndef THOTH_TYPES
-  #include "./types.hpp"
-#endif
-#ifndef THOTH_RAND
-  #include "./rand.hpp"
-#endif
 #include <vector>
 #include <string>
 
@@ -27,18 +18,20 @@ namespace thoth{
       string new_word(int l);
       void generate_model();
       void novel_syllables(int n);
-      void process_words();
+      //void process_words();
       void save_model(string filename);
       void load_model(string filename);
-      void load_words_file(string filename);
-      void add_word(string word);
+      /*void load_words_file(string filename);
+      void add_word(string word);*/
+      void clear_model();
 
     private:
       int coda;
       int onset;
       Rand* rand;
-      Trie vocab;
+      //Trie vocab;
       Model model;
+      bool modeled;
       vector<string> syllables;
       void initialize();
       void distribute_chars();
