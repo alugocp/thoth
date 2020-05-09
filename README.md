@@ -9,9 +9,7 @@ LugoCorp's word generator generator
 - [x] Completely novel language generation
 - [x] Reading and writing language files
 - [x] Objectify pseudo-random number generation
-- [ ] Create binary file format and I/O
 - [x] Validation and exceptions
-
-### Post-launch
+- [ ] Create binary file format and I/O
 - [ ] Sample data pipeline
-- [ ] Optimize algorithms
+- [ ] Optimization

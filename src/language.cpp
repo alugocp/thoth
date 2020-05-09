@@ -24,12 +24,17 @@ Language::Language(){
 void Language::initialize(){
   this->onset=0;
   this->modeled=false;
+  this->word_rand=new Rand();
   if((this->rand->next())%100<75){
     if((this->rand->next())%100<25) this->onset=2;
     else this->onset=1;
   }
   int coda=(this->rand->next())%100;
   this->coda=(coda<15?0:(coda>=85?100:coda));
+  if(!this->onset && !this->coda){
+    if(this->rand->next()%2) this->onset=(this->rand->next()%50)+50;
+    else this->coda=(this->rand->next()%50)+50;
+  }
 }
 void Language::distribute_chars(){
   this->vowels={};
@@ -51,6 +56,9 @@ void Language::distribute_chars(){
     p.prob=1;
     this->vowels.push_back(p);
   }
+}
+void Language::set_seed(unsigned long seed){
+  this->word_rand->set_seed(seed);
 }
 
 
@@ -126,26 +134,8 @@ void Language::load_model(string filename){
 // Model generation
 void Language::generate_model(){
   if(this->modeled) throw ThothException("Language is already modeled");
+  if(!is_init()) throw ThothException("Library has not been initialized");
   if(!this->syllables.size()) throw ThothException("Cannot model a language without syllables");
-  for(int a=0;a<this->syllables.size();a++){
-    string s=this->syllables[a];
-    if(s.size()<MAX){
-      string novel=s;
-      while(novel.size()<MAX){
-        vector<string> nexts;
-        for(int b=0;b<this->syllables.size();b++){
-          if(is_legal(novel,this->syllables[b])){
-            nexts.push_back(this->syllables[b]);
-          }
-        }
-        if(nexts.size()){
-          novel+=nexts[(this->rand->next())%nexts.size()];
-        }
-      }
-      this->syllables.push_back(novel);
-    }
-  }
-  // Calculate syllable followers and add to markov model
   this->model.clear();
   for(int a=0;a<this->syllables.size();a++){
     string s=this->syllables[a];
@@ -189,6 +179,30 @@ void Language::novel_syllables(int n){
     }
     this->syllables.push_back(s);
   }
+  this->ensure_syllables();
+}
+void Language::ensure_syllables(){
+  for(int a=0;a<this->syllables.size();a++){
+    string s=this->syllables[a];
+    if(s.size()<MAX){
+      string novel=s;
+      while(novel.size()<MAX){
+        vector<string> nexts;
+        for(int b=0;b<this->syllables.size();b++){
+          bool okay=is_legal(novel,this->syllables[b]);
+          if(okay) nexts.push_back(this->syllables[b]);
+        }
+        if(nexts.size()) novel+=nexts[(this->rand->next())%nexts.size()];
+        else break;
+      }
+      this->syllables.push_back(novel);
+    }
+  }
+  auto s=this->syllables.begin();
+  while(s!=this->syllables.end()){
+    if((*s).size()<MAX) this->syllables.erase(s);
+    else s++;
+  }
 }
 
 
@@ -222,7 +236,7 @@ void Language::load_words_file(string filename){
 // Word generation
 string Language::new_word(int l){
   if(!this->modeled) throw ThothException("Unmodeled languages cannot generate words");
-  int i=(this->rand->next())%this->model.size();
+  int i=(this->word_rand->next())%this->model.size();
   auto pair=this->model.begin();
   while(i--) pair++;
   string word=pair->first;
@@ -231,9 +245,9 @@ string Language::new_word(int l){
   while(word.size()<l){
     if(l-word.size()==1 || !node.followers.size()){
       if(!node.suffixes.size()) break;
-      next=node.suffixes[(this->rand->next())%node.suffixes.size()];
+      next=node.suffixes[(this->word_rand->next())%node.suffixes.size()];
     }else{
-      next=node.followers[(this->rand->next())%node.followers.size()];
+      next=node.followers[(this->word_rand->next())%node.followers.size()];
     }
     node=this->model[next];
     word+=next;

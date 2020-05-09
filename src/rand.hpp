@@ -7,6 +7,7 @@ namespace thoth{
       Rand();
       Rand(unsigned long seed);
       unsigned long get_seed();
+      void set_seed(unsigned long seed);
       unsigned long next();
     private:
       unsigned long value;

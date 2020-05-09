@@ -2,26 +2,28 @@
 #include <string.h>
 
 static unordered_map<char,vector<string>> banned;
+static bool initialized=false;
 
 // Language generation
 bool thoth::is_okay(string s,char c){
-  for(int a=0;a<banned[c].size();a++){
-    string check=banned[c][a];
-    if(check.size()<=s.size()){
-      int l=check.size();
-      if(s.substr(s.size()-l,l)==check) return false;
+  auto search=banned.find(c);
+  if(search!=banned.end()){
+    for(int a=0;a<banned[c].size();a++){
+      string check=banned[c][a];
+      if(check.size()<=s.size()){
+        int l=check.size();
+        if(s.substr(s.size()-l,l)==check) return false;
+      }
     }
   }
   return true;
 }
 bool thoth::is_legal(string s,string s1){
-  int l=MAX;
-  if(l>s.size()) l=s.size();
-  string prefix=s.substr(s.size()-l,l);
-  for(int a=0;a<MAX;a++){
-    if(!thoth::is_okay(prefix,s1[a])) return false;
-    prefix.push_back(s1[a]);
-    prefix.erase(0,1);
+  string total=s+s1;
+  int end=s.size()+MAX;
+  if(end>total.size()) end=total.size();
+  for(int a=s.size();a<end;a++){
+    if(!thoth::is_okay(total.substr(0,a),total[a])) return false;
   }
   return true;
 }
@@ -71,7 +73,7 @@ const char* thoth::ThothException::what() const throw(){
 
 
 // Initialization
-void thoth::populate_banned(){
+static void populate_banned(){
   banned['i']={"ii","ie","ei","ee","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
   banned['z']={"g","q","j","z","{","}","v","f","x"};
   banned['x']={"g","q","j","z","{","}","v","f","x","w","x","q"};
@@ -97,6 +99,10 @@ void thoth::populate_banned(){
   banned['y']={"j","y","q"};
   banned['c']={"cc","ck","kc","kk"};
 }
+bool thoth::is_init(){
+  return initialized;
+}
 void thoth::init(){
-  thoth::populate_banned();
+  populate_banned();
+  initialized=true;
 }

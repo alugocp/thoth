@@ -24,7 +24,7 @@ namespace thoth{
   string word_to_string(string word);
 
   // Initialization
-  void populate_banned();
+  bool is_init();
   void init();
 
   // Exception

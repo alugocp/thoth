@@ -1,5 +1,5 @@
 
-all: clean test
+all: clean tools
 
 clean:
 	rm -rf bin
@@ -12,9 +12,12 @@ thoth:
 	g++ -std=c++11 -c src/thoth.cpp -o bin/thoth.o
 	ld -relocatable bin/language.o bin/thoth.o bin/rand.o -o bin/thoth.so
 
+tools: test cli
+
 test: thoth
 	g++ -std=c++11 -c tools/test.cpp -o bin/test.o
 	g++ bin/test.o bin/thoth.so -o bin/test
 
 cli: thoth
-	echo "CLI"
+	g++ -std=c++11 -c tools/cli.cpp -o bin/cli.o
+	g++ bin/cli.o bin/thoth.so -o bin/thoth
