@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="20.5mm"
+   height="21.9mm"
+   viewBox="0 0 20.5 21.9"
+   version="1.1"
+   id="svg932"
+   inkscape:version="0.92.4 (33fec40, 2019-01-16)"
+   sodipodi:docname="lugocorp-hex.svg"
+   inkscape:export-filename="/home/alexander/Desktop/lugocorp-hex.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs926" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.5904411"
+     inkscape:cx="60.687493"
+     inkscape:cy="60.511098"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1859"
+     inkscape:window-height="1056"
+     inkscape:window-x="61"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata929">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-275.1)">
+    <ellipse
+       style="fill:#118ad6;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4.29087114;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path1534"
+       cx="10.401426"
+       cy="286.00906"
+       rx="9.21138"
+       ry="9.2850714"
+       inkscape:export-filename="/home/alexander/Desktop/lugocorp-hex.png"
+       inkscape:export-xdpi="204.31525"
+       inkscape:export-ydpi="204.31525" />
+    <g
+       id="g1532"
+       style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-opacity:1"
+       transform="translate(-5,4.9999975)"
+       inkscape:export-filename="/home/alexander/Desktop/lugocorp-hex.png"
+       inkscape:export-xdpi="204.31525"
+       inkscape:export-ydpi="204.31525">
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 9.2519569,273.17638 c 5.9576881,-3.43957 5.9576881,-3.43957 11.9153781,0"
+         id="shape0" />
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 19.062445,271.9606 c 5.9576,3.43972 5.9576,3.43972 5.95768,10.31901"
+         id="shape2" />
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 25.020405,279.87378 c -8e-5,6.87929 -8e-5,6.87929 -5.95768,10.31902"
+         id="shape3" />
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 21.232065,288.94371 c -5.95769,3.43957 -5.95769,3.43957 -11.9153761,0"
+         id="shape4" />
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="M 11.434403,290.16574 C 5.4768029,286.72602 5.4768029,286.72602 5.4767159,279.84673"
+         id="shape5" />
+      <path
+         style="fill:#118ad6;fill-opacity:1;stroke:#454545;stroke-width:0.95322996;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:connector-curvature="0"
+         d="m 5.4771519,282.23615 c 8.8e-5,-6.87929 8.8e-5,-6.87929 5.9576881,-10.31901"
+         id="shape7" />
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot1536"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:Baloo;-inkscape-font-specification:'Baloo Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
+       transform="matrix(0.26458333,0,0,0.26458333,0,267)"><flowRegion
+         id="flowRegion1538"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Baloo;-inkscape-font-specification:'Baloo Bold'"><rect
+           id="rect1540"
+           width="43.170185"
+           height="56.817532"
+           x="-75.756706"
+           y="6.713696"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Baloo;-inkscape-font-specification:'Baloo Bold'" /></flowRegion><flowPara
+         id="flowPara1542" /></flowRoot>    <g
+       aria-label="L"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20.22626305px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';letter-spacing:0px;word-spacing:0px;fill:#fafafa;fill-opacity:1;stroke:none;stroke-width:0.5056566"
+       id="text1546">
+      <path
+         d="m 8.6226142,292.30451 q -0.8697293,0 -1.3753859,-0.50565 -0.5056566,-0.50566 -0.5056566,-1.37539 v -10.45698 q 0.2224889,-0.0405 0.7079192,-0.10113 0.4854303,-0.0809 0.9304081,-0.0809 0.4652041,0 0.8090506,0.0809 0.3640727,0.0607 0.6067878,0.24272 0.2427156,0.18203 0.3640726,0.50565 0.121358,0.32362 0.121358,0.84951 v 7.98937 h 4.631814 q 0.141584,0.22249 0.262941,0.60679 0.121358,0.36407 0.121358,0.7686 0,0.80905 -0.343846,1.15289 -0.343847,0.32362 -0.910182,0.32362 z"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Baloo;-inkscape-font-specification:'Baloo Bold';fill:#fafafa;fill-opacity:1;stroke-width:0.5056566"
+         id="path891"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>
