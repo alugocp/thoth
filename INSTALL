@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Build library
+make thoth
+
+# Reset previous installation
+DEST=/usr/include/thoth
+rm -rf $DEST
+mkdir $DEST 2> /dev/null
+if [ "$?" = 1 ]; then
+  echo "Please run with sudo"
+  exit 1
+fi
+
+# Install files
+cp src/*.hpp $DEST
+cp bin/thoth.so /usr/lib/libthoth.so
+cp thoth.pc /usr/lib/pkgconfig
