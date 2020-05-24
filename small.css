@@ -1,18 +1,16 @@
 
 
   @media screen and (max-width: 1400px) {
-    
+
     .sidebar {
       background-color:var(--gray);
       position:fixed;
       width:24%;
       left:1%;
       overflow:auto;
-      
-      
     }
     .sidebar a {
-      font-size: 20px;;
+      font-size: 20px;
       text-align: center;
       float: none;
     }
@@ -20,20 +18,20 @@
       display: block;
       margin-left: auto;
       margin-right: auto;
-      width:100%;}
+      width:100%;
+    }
 
     .sidebar .smallLogo{
       width:25%;
     }
 
     .content{
-      width:57%;
+      width:70%;
       left:29%;
-      
     }
 
   }
-  
+
   @media screen and (max-width: 800px) {
     .header{
       display:none;

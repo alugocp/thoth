@@ -3,7 +3,7 @@
   --black:#333333;
   --white:#fdfdfd;
   --gray:#e2e2e2;
-  
+
 }
 
 body{
@@ -16,32 +16,28 @@ body{
 
 .header{
   background-color:var(--green);
-  color:var(--white);
   margin-bottom:15px;
   text-align:center;
-  padding:15px 5px;
-  font-weight:bold;
-  font-size:20px;
+  height:15px;
 }
 
 /* Sidebar */
 .sidebar{
   background-color:var(--gray);
   position:fixed;
+  overflow:auto;
   width:10%;
   left:1%;
-  overflow:auto;
 }
 .sidebar .logo{
   position:relative;
   width:100%;
 }
 .sidebar a{
-  margin-top:15px;
   font-weight:bold;
+  margin-top:15px;
   display:block;
 }
-
 .sidebar .smallLogo{
   width:50%;
 }
@@ -51,12 +47,13 @@ body{
 }
 .sidebar .column{
   text-align: center;
-  flex: 50%;
   padding: 5px;
-  
-  
+  flex: 50%;
 }
-
+.sidebar .wordWrap{
+  word-wrap:break-word;
+  margin-left:5px;
+}
 
 
 
@@ -67,21 +64,21 @@ body{
   position:relative;
   width:75%;
   left:15%;
-  
+
+}
+.title{
+  transform: translateX(-3%);
+  color:var(--green);
+  text-align:center;
+  font-weight:bold;
+  font-size:15vw;
+  margin:5px 0;
 }
 hr{
   border:solid 1px var(--gray);
   margin:100px 0;
 }
 
-h2{
-  color:var(--green);
-  font-weight: bold;
-  font-size:350%;
-  text-align: center;
-  transform: translateX(-3%);
-  
-}
 h1{
   color:var(--green);
   font-weight:bold;
@@ -89,12 +86,12 @@ h1{
 }
 
 .generateButton {
-  
+
   background-color:var(--green);
   transform: translateX(50%);
   border-radius:25px;
   text-align:center;
-  
+
   font-size:30px;
   padding:15px;
   width:50%;
@@ -102,7 +99,7 @@ h1{
   color: white;
   font-weight: bold;
   text-decoration: none;
-  
+
   margin: 4px 2px;
   cursor: pointer;
 }
@@ -120,8 +117,10 @@ p{
 }
 
 .contentImage{
-  
   text-align: center;
+}
+.contentImage img{
+  max-width:100%;
 }
 
 .wordWrap{
@@ -137,5 +136,3 @@ p{
   font-size:20px;
   padding:5px 0;
 }
-
-
