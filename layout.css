@@ -3,6 +3,7 @@
   --black:#333333;
   --white:#fdfdfd;
   --gray:#e2e2e2;
+  
 }
 
 body{
@@ -27,9 +28,9 @@ body{
 .sidebar{
   background-color:var(--gray);
   position:fixed;
-  padding:5px;
   width:10%;
   left:1%;
+  overflow:auto;
 }
 .sidebar .logo{
   position:relative;
@@ -41,11 +42,32 @@ body{
   display:block;
 }
 
+.sidebar .smallLogo{
+  width:50%;
+}
+
+.sidebar .row{
+  display: flex;
+}
+.sidebar .column{
+  text-align: center;
+  flex: 50%;
+  padding: 5px;
+  
+  
+}
+
+
+
+
+
+
 /* Content */
 .content{
   position:relative;
-  width:80%;
+  width:75%;
   left:15%;
+  
 }
 hr{
   border:solid 1px var(--gray);
@@ -56,13 +78,33 @@ h2{
   color:var(--green);
   font-weight: bold;
   font-size:350%;
-  position: relative;
-  left:50%;
+  text-align: center;
+  transform: translateX(-3%);
+  
 }
 h1{
   color:var(--green);
   font-weight:bold;
   font-size: 250%;
+}
+
+.generateButton {
+  
+  background-color:var(--green);
+  transform: translateX(50%);
+  border-radius:25px;
+  text-align:center;
+  
+  font-size:30px;
+  padding:15px;
+  width:50%;
+  border: white;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  
+  margin: 4px 2px;
+  cursor: pointer;
 }
 a{
   text-decoration:none;
@@ -77,6 +119,11 @@ p{
   font-size:125%
 }
 
+.contentImage{
+  
+  text-align: center;
+}
+
 .footer{
   background-color:var(--black);
   color:var(--white);
@@ -87,19 +134,4 @@ p{
   padding:5px 0;
 }
 
-.grid-Container{
-  grid-template-columns: 5% 90% 5%;
-  background-color:var(--white);
-  
-  grid-column-gap:25px;
-  position:relative;
-  display:grid;
-}
 
-.item1{
-  
-}
-
-.item2{
-  text-align:left;
-}
