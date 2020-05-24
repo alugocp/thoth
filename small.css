@@ -21,13 +21,13 @@
       width:100%;
     }
 
-    .sidebar .smallLogo{
-      width:25%;
-    }
-
     .content{
       width:70%;
       left:29%;
+    }
+
+    h1 span{
+      display:block;
     }
 
   }
