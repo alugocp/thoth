@@ -111,7 +111,7 @@ h1 span{
 }
 a{
   text-decoration:none;
-  color:var(--green);
+  color:var(--dark-green);
 }
 a:hover{
   text-decoration:underline;
@@ -141,4 +141,7 @@ p{
   font-weight:bold;
   font-size:20px;
   padding:5px 0;
+}
+.footer a{
+  color:var(--green);
 }
