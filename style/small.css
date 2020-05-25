@@ -73,7 +73,6 @@
     }
 
     .contentImage{
-       display:inline;
-       float:none;
+       text-align:left
     }
   }
