@@ -6,15 +6,18 @@
   <meta name="keywords" content="language generation,word generation,markov model,thoth,lugocorp,lugo crop,word generation,language generator,generate words online,online word generator,word generator linux,linux,word,generation,generator,c++"/>
   <meta name="description" content="Thoth is LugoCorp's language generation library written in C++. Generate thousands of words with our easy-to-use tools!"/>
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="layout.css"/>
-  <link rel="stylesheet" href="small.css"/>
+  <link rel="stylesheet" href="style/codemirror.css"/>
+  <link rel="stylesheet" href="style/layout.css"/>
+  <link rel="stylesheet" href="style/small.css"/>
+  <script src="script/codemirror.js"></script>
+  <script src="script/clike.js"></script>
 </head>
 <body>
   <div class="header"></div>
 
   <!-- Table of contents -->
   <div class="sidebar">
-    <img class="logo" src="thoth.svg"/>
+    <img class="logo" src="res/thoth.svg"/>
     <a class="wordWrap">What is Thoth?</a>
     <a class="wordWrap">Try it out</a>
     <a class="wordWrap">Getting started</a>
@@ -22,12 +25,12 @@
     <div class="row">
       <div class="column">
         <a href="http://lugocorp.net/">
-          <img class="smallLogo" src="lugocorp-hex.svg" title="LugoCorp">
+          <img class="smallLogo" src="res/lugocorp-hex.svg" title="LugoCorp">
         </a>
       </div>
       <div class="column">
         <a href="https://github.com/alugocp/thoth">
-          <img class="smallLogo" src="github.svg" title="GitHub">
+          <img class="smallLogo" src="res/github.svg" title="GitHub">
         </a>
       </div>
     </div>
@@ -70,7 +73,32 @@
       Happy Thothing!
     </p>
     <div class="contentImage">
-      <img src="RandomPythonCode.png">
+      <textarea id="example" rows="20">
+#include&lt;thoth/thoth.hpp&gt;
+#include&lt;thoth/language.hpp&gt;
+#include&lt;iostream&gt;
+
+int main(int argc,char** argv){
+
+  // Initialize the Thoth library
+  thoth::init();
+
+  // Create a new procedural language
+  thoth::Language lang();
+  lang.novel_syllables(100);
+  lang.generate_model();
+
+  // Generate a word
+  string word=lang.new_word(6);
+  std::cout &lt;&lt; word &lt;&lt; "\n";
+}
+      </textarea>
+      <script>
+        var editor=CodeMirror.fromTextArea(document.getElementById("example"),{
+          lineNumbers:true,
+          mode:"text/x-c++src"
+        });
+      </script>
     </div>
     <hr>
     <h1>Documentation <span>Learn Thoth</span></h1>

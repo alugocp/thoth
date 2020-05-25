@@ -122,11 +122,13 @@ p{
   font-size:125%
 }
 
-.contentImage{
-  text-align: center;
+.contentImage textarea{
+  text-align:left;
+  width:100%;
 }
-.contentImage img{
-  max-width:100%;
+.CodeMirror{
+  font-size:18px;
+  height:auto;
 }
 
 .wordWrap{
