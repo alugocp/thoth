@@ -189,6 +189,7 @@ void Language::ensure_syllables(){
       while(novel.size()<MAX){
         vector<string> nexts;
         for(int b=0;b<this->syllables.size();b++){
+          if(a==b) continue;
           bool okay=is_legal(novel,this->syllables[b]);
           if(okay) nexts.push_back(this->syllables[b]);
         }

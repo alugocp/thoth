@@ -6,7 +6,7 @@ using namespace std;
 int main(int argc,char** argv){
   init();
   Language lang(10386209733);
-  lang.novel_syllables(50);
+  lang.novel_syllables(100);
   lang.generate_model();
   lang.print_model();
   lang.print_syllables();
