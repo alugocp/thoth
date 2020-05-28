@@ -75,7 +75,6 @@
     <div class="contentImage">
       <textarea id="example" rows="20">
 #include&lt;thoth/thoth.hpp&gt;
-#include&lt;thoth/language.hpp&gt;
 #include&lt;iostream&gt;
 
 int main(int argc,char** argv){
@@ -84,7 +83,7 @@ int main(int argc,char** argv){
   thoth::init();
 
   // Create a new procedural language
-  thoth::Language lang();
+  thoth::Language lang;
   lang.novel_syllables(100);
   lang.generate_model();
 
