@@ -12,6 +12,14 @@ thoth:
 	g++ -std=c++11 -c src/thoth.cpp -o bin/thoth.o
 	ld -relocatable bin/language.o bin/thoth.o bin/rand.o -o bin/thoth.so
 
+wasm:
+	rm -rf wasm
+	mkdir -p wasm
+	emcc -std=c++11 -Isrc tools/helloworld-wasm.cpp \
+		src/thoth.cpp src/language.cpp src/rand.cpp -o wasm/thoth.js \
+		-s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall","cwrap"]' \
+		-s EXPORTED_FUNCTIONS="['_main','_get_word','_generate']"
+
 tools: test cli
 
 test: thoth
