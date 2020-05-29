@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style/layout.css"/>
   <link rel="stylesheet" href="style/small.css"/>
   <script src="script/codemirror.js"></script>
+  <script src="script/generate.js"></script>
   <script src="script/clike.js"></script>
 </head>
 <body>
@@ -62,9 +63,10 @@
       But don't take my word for it, try it out for yourself!
       Click generate to watch procedural words appear before your very eyes.
     </p>
-    <button class="generateButton">
+    <button class="generateButton" onClick="generate_words()">
       Generate
     </button>
+    <div class="words-wrapper"></div>
     <hr>
     <h1>Getting started <span>Language generation in C++</span></h1>
     <p>
@@ -111,4 +113,5 @@ int main(int argc,char** argv){
     Developed by <a href="http://lugocorp.net">LugoCorp</a>
   </div>
 </body>
+<script src="wasm/thoth.js"></script>
 </html>

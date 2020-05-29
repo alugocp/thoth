@@ -109,6 +109,13 @@ h1 span{
 .generateButton:hover{
   background-color:var(--dark-green);
 }
+.words-wrapper{
+  grid-template-columns:50% 50%;
+  color:var(--green);
+  text-align:center;
+  font-weight:bold;
+  display:grid;
+}
 a{
   text-decoration:none;
   color:var(--dark-green);
