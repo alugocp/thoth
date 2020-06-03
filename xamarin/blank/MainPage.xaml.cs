@@ -13,6 +13,8 @@ namespace blank
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        int value = 1;
+
         public MainPage()
         {
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace blank
         void OnButtonClicked(object sender, EventArgs e)
         {
             (sender as Button).Text = "Click me again!";
+            label.Text = "" + ++this.value;
         }
     }
 }

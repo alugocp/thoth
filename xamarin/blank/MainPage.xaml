@@ -4,14 +4,47 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="blank.MainPage">
+             x:Class="blank.MainPage"
+             BackgroundColor="#33333f">
 
-    <StackLayout>
-        <Label Text="Hello Thoth" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-        <Button Text="Click me" 
-                Clicked="OnButtonClicked"/>
+    <StackLayout 
+        Margin="10,0,10,10" 
+        Padding="0,0,0,0"  
+        Orientation="Vertical"      
+        Spacing="0">
+ 
+        <Label Text="Custom Language Generator" 
+               FontSize="25" 
+               Margin="10,0,10,10" 
+               TextColor="White"
+               HorizontalOptions="Center" 
+               VerticalOptions="CenterAndExpand"/>
+        <StackLayout 
+               Margin="10,0,10,10" 
+               Padding="0,0,0,0"  
+               Orientation="Vertical"      
+               Spacing="10"
+               VerticalOptions="CenterAndExpand">
+
+            <Label  x:Name="label" 
+                    Text="1" 
+                    TextColor="White" 
+                    FontSize="15"
+                    HorizontalOptions="Center" />
+            <Label  Text="ksdfjls" 
+                    TextColor="White" 
+                    FontSize="15"
+                    HorizontalOptions="Center" />
+            <Label  Text="ksdfjls" 
+                    TextColor="White" 
+                    FontSize="15"
+                    HorizontalOptions="Center" />
+
+        </StackLayout>
+        
+        <Button Text="Generate New" 
+                TextColor="White"
+                Clicked="OnButtonClicked" BackgroundColor="#65656e"/>
+        
     </StackLayout>
-
 </ContentPage>
