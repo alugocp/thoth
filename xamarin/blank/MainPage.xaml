@@ -3,48 +3,101 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              mc:Ignorable="d"
              x:Class="blank.MainPage"
-             BackgroundColor="#33333f">
+            BackgroundColor="#33333F" >
 
-    <StackLayout 
-        Margin="10,0,10,10" 
-        Padding="0,0,0,0"  
-        Orientation="Vertical"      
-        Spacing="0">
- 
-        <Label Text="Custom Language Generator" 
-               FontSize="25" 
-               Margin="10,0,10,10" 
-               TextColor="White"
-               HorizontalOptions="Center" 
-               VerticalOptions="CenterAndExpand"/>
+    <StackLayout>
+
         <StackLayout 
-               Margin="10,0,10,10" 
-               Padding="0,0,0,0"  
-               Orientation="Vertical"      
-               Spacing="10"
-               VerticalOptions="CenterAndExpand">
 
-            <Label  x:Name="label" 
-                    Text="1" 
-                    TextColor="White" 
-                    FontSize="15"
-                    HorizontalOptions="Center" />
-            <Label  Text="ksdfjls" 
-                    TextColor="White" 
-                    FontSize="15"
-                    HorizontalOptions="Center" />
-            <Label  Text="ksdfjls" 
-                    TextColor="White" 
-                    FontSize="15"
-                    HorizontalOptions="Center" />
-
+            Orientation="Horizontal" 
+            BackgroundColor="#4cb57d" 
+            Padding="30,20,30,20">
+            
+            <ffimageloadingsvg:SvgCachedImage 
+                Source="logosvg.svg" 
+                WidthRequest="40" 
+                HeightRequest="40"
+                HorizontalOptions="Center" 
+                Margin="0,0,20,0"/>
+            
+            <Label 
+                Text="Thoth" 
+                TextColor="#33333F" 
+                FontSize="25" />
+            
         </StackLayout>
         
-        <Button Text="Generate New" 
-                TextColor="White"
-                Clicked="OnButtonClicked" BackgroundColor="#65656e"/>
         
+        <StackLayout 
+            Margin="10,10,10,10"  
+            Padding="0,10,0,10"
+            VerticalOptions="Center"
+            BackgroundColor="#2D2D39">
+
+            <StackLayout 
+                Orientation="Horizontal">
+                
+                <Label 
+
+                    Text="Source" 
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand" />
+
+                <Picker x:Name="picker" Title="Choose Source" TextColor="#cccccc" TitleColor="#cccccc" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            
+            <StackLayout 
+                Orientation="Horizontal">
+
+                <Label 
+                    Text="Word Count" 
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand" />
+                <Button Clicked="DecrementCount" Text="-" Padding="0,0,0,0" WidthRequest="35" HeightRequest="35" BorderRadius="40" HorizontalOptions="CenterAndExpand" />
+                <Label
+                    x:Name="countLabel"
+                    Text="8" 
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand" />
+                <Button  Clicked="IncrementCount" Text="+" Padding="0,0,0,0" WidthRequest="35" HeightRequest="35" BorderRadius="40" HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+
+
+            <Button Margin="30,10,10,10"  Clicked="Generate"  Text="Generate" BorderRadius="5" />
+
+        </StackLayout>
+        <ScrollView>
+
+            <StackLayout
+                x:Name="results"
+                Margin="10,0,10,10"  
+                Padding="0,10,0,10"
+                VerticalOptions="Center"
+                BackgroundColor="#2D2D39">
+
+                <StackLayout Orientation="Horizontal">
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                    <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
+                </StackLayout>
+
+
+            </StackLayout>
+        </ScrollView>
+
     </StackLayout>
 </ContentPage>

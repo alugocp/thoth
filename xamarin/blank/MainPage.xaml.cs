@@ -13,16 +13,46 @@ namespace blank
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        int value = 1;
+        int count = 8;
 
         public MainPage()
         {
             InitializeComponent();
+            picker.TextColor = new Color(204, 204, 204);
         }
-        void OnButtonClicked(object sender, EventArgs e)
+        void IncrementCount(object sender, EventArgs e)
         {
-            (sender as Button).Text = "Click me again!";
-            label.Text = "" + ++this.value;
+            count += 4;
+            if (count > 40) count = 40;
+            countLabel.Text = "" + count;
+        }
+        void DecrementCount(object sender, EventArgs e)
+        {
+            count -= 4;
+            if (count < 4) count = 4;
+            countLabel.Text = "" + count;
+        }
+
+        String generateWord ()
+        {
+            return "skjdfs";
+        }
+
+        void Generate(object sender, EventArgs e)
+        {
+            results.Children.Clear();
+            for ( int i = 0; i < count; i += 2)
+                results.Children.Add(
+                    new StackLayout
+                    {
+                        Orientation=StackOrientation.Horizontal,
+                        Children =
+                        {
+                            new Label{ Text=generateWord(), FontSize=15, HorizontalOptions=LayoutOptions.CenterAndExpand },
+                            new Label{ Text=generateWord(), FontSize=15, HorizontalOptions=LayoutOptions.CenterAndExpand }
+                        }
+                    });
+
         }
     }
 }

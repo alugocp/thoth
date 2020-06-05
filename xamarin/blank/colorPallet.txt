@@ -1,0 +1,6 @@
+﻿Not in build path, just used as a clipboard
+
+Green : #4cb57d
+Text : #cccccc
+DarkBackground : #33333F
+LightBackground : #5B5B71

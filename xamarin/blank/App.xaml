@@ -6,6 +6,25 @@
              mc:Ignorable="d"
              x:Class="blank.App">
     <Application.Resources>
-
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="#cccccc" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CharacterSpacing" Value="1" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="TextColor" Value="#cccccc" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CharacterSpacing" Value="1" />
+            <Setter Property="BackgroundColor" Value="#4cb57d" />
+        </Style>
+        <Style TargetType="StackLayout">
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="TextColor" Value="#cccccc" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="CharacterSpacing" Value="1" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
     </Application.Resources>
 </Application>
