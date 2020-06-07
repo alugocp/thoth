@@ -11,13 +11,14 @@ namespace blank
     // Learn more about making custom code visible in the Xamarin.Forms previewer
     // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    public partial class GeneratePage : ContentPage
     {
         int count = 8;
 
-        public MainPage()
+        public GeneratePage()
         {
             InitializeComponent();
+            NavigationPage.SetHasNavigationBar(this, false);
             picker.TextColor = new Color(204, 204, 204);
         }
         void IncrementCount(object sender, EventArgs e)
@@ -53,6 +54,11 @@ namespace blank
                         }
                     });
 
+        }
+
+        void SwapToArchive ( object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new NavigationPage(new ArchivePage());
         }
     }
 }

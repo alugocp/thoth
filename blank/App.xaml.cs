@@ -10,7 +10,7 @@ namespace blank
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new GeneratePage();
         }
 
         protected override void OnStart()
