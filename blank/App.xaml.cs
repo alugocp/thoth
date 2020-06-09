@@ -9,7 +9,7 @@ namespace blank
         public App()
         {
             InitializeComponent();
-
+            System.Console.WriteLine("Toots lmao");
             MainPage = new MainPage();
         }
 

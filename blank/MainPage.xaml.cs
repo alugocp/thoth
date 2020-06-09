@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -13,12 +14,15 @@ namespace blank
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
+        private ThothAPI api;
         int count = 8;
 
         public MainPage()
         {
             InitializeComponent();
             picker.TextColor = new Color(204, 204, 204);
+            api=new ThothAPI();
+            api.new_lang();
         }
         void IncrementCount(object sender, EventArgs e)
         {
@@ -33,25 +37,19 @@ namespace blank
             countLabel.Text = "" + count;
         }
 
-        String generateWord ()
-        {
-            return "skjdfs";
-        }
-
         void Generate(object sender, EventArgs e)
         {
             results.Children.Clear();
-            for ( int i = 0; i < count; i += 2)
-                results.Children.Add(
-                    new StackLayout
-                    {
-                        Orientation=StackOrientation.Horizontal,
-                        Children =
-                        {
-                            new Label{ Text=generateWord(), FontSize=15, HorizontalOptions=LayoutOptions.CenterAndExpand },
-                            new Label{ Text=generateWord(), FontSize=15, HorizontalOptions=LayoutOptions.CenterAndExpand }
-                        }
-                    });
+            for (int i = 0; i < count; i += 2)
+            {
+                Label first = new Label{HorizontalOptions = LayoutOptions.CenterAndExpand,FontSize = 15};
+                Label second = new Label { HorizontalOptions = LayoutOptions.CenterAndExpand, FontSize = 15 };
+                results.Children.Add(new StackLayout { Orientation = StackOrientation.Horizontal, Children = { first, second } });
+                //api.new_word(6,word => first.Text=word);
+                //api.new_word(6,word => second.Text=word);
+                first.Text = "Teehee";
+                second.Text = "Toohoo";
+            }
 
         }
     }
