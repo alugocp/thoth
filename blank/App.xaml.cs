@@ -9,8 +9,7 @@ namespace blank
         public App()
         {
             InitializeComponent();
-            System.Console.WriteLine("Toots lmao");
-            MainPage = new MainPage();
+            MainPage = new GeneratePage();
         }
 
         protected override void OnStart()
