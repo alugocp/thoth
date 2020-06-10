@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-
 
 class ThothAPI:IDisposable{
 
@@ -13,18 +11,25 @@ class ThothAPI:IDisposable{
 	}
 
 	// Public facing API interface
-	public void new_word(int l,Action<string> cb) {
-		Task.Run(() => cb(wrapped_new_word(l)));
-	}
+	public string[] new_words(int n,int l) {
+		IntPtr ptrs=wrapped_new_words(n,l);
+        IntPtr[] data = new IntPtr[n];
+        Marshal.Copy(ptrs,data,0,n);
+        string[] words = new string[n];
+        for (int a = 0; a < n; a++) {
+            words[a] =Marshal.PtrToStringAnsi(data[a]);
+        }
+        return words;
+    }
 	public void new_lang() {
 		wrapped_new_lang();
 	}
 
 	// Wrapped binary C++ functions
 	private const string DllName = "libthoth.so";
-	[DllImport(DllName, EntryPoint = "thothAPI_new_word")]
-	[return: MarshalAs(UnmanagedType.LPStr)]
-	private static extern string wrapped_new_word(int l);
+	[DllImport(DllName, EntryPoint = "thothAPI_new_words")]
+    [return: MarshalAs(UnmanagedType.LPArray,ArraySubType = UnmanagedType.LPStr,SizeConst = 80)]
+    private static extern IntPtr wrapped_new_words(int n,int l);
 	[DllImport(DllName, EntryPoint = "thothAPI_new_language")]
 	private static extern void wrapped_new_lang();
 	[DllImport(DllName, EntryPoint = "thothAPI_start")]

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace blank
 {
@@ -29,28 +26,39 @@ namespace blank
         {
             count += 4;
             if (count > 40) count = 40;
-            countLabel.Text = "" + count;
+            countLabel.Text = count.ToString();
         }
         void DecrementCount(object sender, EventArgs e)
         {
             count -= 4;
             if (count < 4) count = 4;
-            countLabel.Text = "" + count;
+            countLabel.Text = count.ToString();
         }
 
         void Generate(object sender, EventArgs e)
         {
-            results.Children.Clear();
-            for (int i = 0; i < count; i += 2)
-            {
-                Label first = new Label{HorizontalOptions = LayoutOptions.CenterAndExpand,FontSize = 15};
-                Label second = new Label { HorizontalOptions = LayoutOptions.CenterAndExpand, FontSize = 15 };
-                results.Children.Add(new StackLayout { Orientation = StackOrientation.Horizontal, Children = { first, second } });
-                //api.new_word(6,word => first.Text=word);
-                //api.new_word(6,word => second.Text=word);
-                first.Text = "Teehee";
-                second.Text = "Toohoo";
-            }
+            Task.Run(() => {
+
+                // Call API
+                string[] words = api.new_words(count,6);
+
+                // Update UI
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    results.Children.Clear();
+                    for (int a = 0; a < count; a += 2)
+                    {
+                        results.Children.Add(new StackLayout
+                        {
+                            Orientation = StackOrientation.Horizontal,
+                            Children = {
+                                new Label { HorizontalOptions = LayoutOptions.CenterAndExpand, FontSize = 15, Text = words[a] },
+                                new Label { HorizontalOptions = LayoutOptions.CenterAndExpand, FontSize = 15, Text = words[a+1] }
+                            }
+                        });
+                    }
+                });
+            });
 
         }
 
