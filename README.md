@@ -18,4 +18,10 @@ We're embedding Thoth library into a Xamarin.Forms app!
 
 
 ### Main View ( Android )
-<img src="./shots/4.png" alt="drawing" width="200"/>
+<img src="./shots/5.png" alt="drawing" width="200"/>
+
+### Name Seed ( Android )
+<img src="./shots/6.png" alt="drawing" width="200"/>
+
+### Archive List ( Android )
+<img src="./shots/7.png" alt="drawing" width="200"/>

@@ -24,13 +24,22 @@
                 Margin="0,0,20,0"/>
 
             <Label 
-                Text="Thoth" 
+                Text="Thoth Archive" 
                 TextColor="#33333F" 
                 FontSize="25" />
 
         </StackLayout>
 
+        <ScrollView>
+            <StackLayout
+                x:Name="archived"
+                Margin="10,0,10,10"  
+                Padding="0,10,0,10"
+                VerticalOptions="Center"
+                BackgroundColor="#2D2D39">
 
+            </StackLayout>
+        </ScrollView>
 
         <StackLayout 
             Orientation="Horizontal" 

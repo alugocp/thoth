@@ -99,6 +99,7 @@
             </StackLayout>
         </ScrollView>
 
+        <Button Margin="30,10,10,10"  Clicked="SaveSeedAsync"  Text="Save Generation Seed" BorderRadius="5" />
 
         <StackLayout 
             Orientation="Horizontal" 
