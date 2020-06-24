@@ -12,10 +12,13 @@ namespace blank
 {
     public partial class ArchivePage : ContentPage
     {
+        private Seeds seeds;
+
         public ArchivePage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
+            seeds=new Seeds();
             loadData();
 
         }
@@ -24,8 +27,26 @@ namespace blank
         {
 
             archived.Children.Clear();
+            seeds.getSeeds().ForEach(t => {
+                string name=seeds.stringify(t.Item1,t.Item2);
+                var del = new Button { Text = "Delete", BackgroundColor = Color.FromHex("#40996a") };
+                del.Clicked += async (s, e) =>
+                {
+                    seeds.removeSeed(t.Item1,t.Item2);
+                    loadData();
+                };
 
-            String[] ArchivedNames = Preferences.Get("Archive", "").Split(',').Where(i => i != "").ToArray();
+                archived.Children.Add(new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Children = {
+                        new Label { HorizontalOptions = LayoutOptions.CenterAndExpand, FontSize = 15, Text = name },
+                         del
+                    }
+                });
+            });
+
+            /*String[] ArchivedNames = Preferences.Get("Archive", "").Split(',').Where(i => i != "").ToArray();
             ArchivedNames.ForEach(name =>
             {
                 var del = new Button { Text = "Delete", BackgroundColor = Color.FromHex("#40996a") };
@@ -44,10 +65,10 @@ namespace blank
                          del
                     }
                 });
-            });
+            });*/
         }
 
-            void SwapToGenearte(object sender, EventArgs e)
+            void SwapToGenerate(object sender, EventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new GeneratePage());
         }

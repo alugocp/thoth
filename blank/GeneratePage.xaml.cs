@@ -3,7 +3,6 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
-using System.Linq;
 using Xamarin.Forms.Internals;
 
 namespace blank
@@ -14,6 +13,7 @@ namespace blank
     public partial class GeneratePage : ContentPage
     {
         private ThothAPI api;
+        private Seeds seeds;
         int count = 8;
 
         public GeneratePage()
@@ -23,15 +23,17 @@ namespace blank
             picker.TextColor = new Color(204, 204, 204);
 
             // Load archive
-
-            String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
+            /*String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
             ArchivedNames.ForEach(name =>{
                 if (name != "")
                     picker.Items.Add(name);
-            });
+            });*/
 
+            seeds = new Seeds();
             api =new ThothAPI();
             api.new_lang();
+
+            Generate();
         }
         void IncrementCount(object sender, EventArgs e)
         {
@@ -46,15 +48,18 @@ namespace blank
             countLabel.Text = count.ToString();
         }
 
-        void Generate(object sender, EventArgs e)
+        void GenerateAction(object sender, EventArgs e){
+            Generate();
+        }
+        void Generate()
         {
-            Random rand = new Random();
-            String key = (picker.SelectedItem == null ? "" : picker.SelectedItem).ToString();
-            uint[] langSeeds = Preferences.Get("_" + key, "").Split(',').Select( i => Convert.ToUInt32(i)).ToArray();
+            //Random rand = new Random();
+            //String key = (picker.SelectedItem == null ? "" : picker.SelectedItem).ToString();
+            //uint[] langSeeds = Preferences.Get("_" + key, "").Split(',').Select( i => Convert.ToUInt32(i)).ToArray();
 
             Task.Run(() => {
 
-                if (key != "") api.load_lang(langSeeds[0], langSeeds[1]);
+                //if (key != "") api.load_lang(langSeeds[0], langSeeds[1]);
 
                 // Call API
                 string[] words = api.new_words(count, 6 );
@@ -79,10 +84,10 @@ namespace blank
 
         }
 
-        async void SaveSeedAsync(object sender, EventArgs e)
+        void SaveSeed(object sender, EventArgs e)
         {
-            Tuple<uint, uint> seeds = api.save_lang();
-            String saveData = seeds.Item1.ToString() + ',' + seeds.Item2.ToString();
+            Tuple<uint, uint> seed = api.save_lang();
+            /*String saveData = seeds.Item1.ToString() + ',' + seeds.Item2.ToString();
             String getName = await InputBox(this.Navigation);
 
             Preferences.Set('_' + getName, saveData);
@@ -93,7 +98,8 @@ namespace blank
             ArchivedNames.ForEach(name => {
                 if (name != "")
                     picker.Items.Add(name);
-            });
+            });*/
+            seeds.addSeed(seed.Item1,seed.Item2);
         }
 
         void SwapToArchive ( object sender, EventArgs e)
