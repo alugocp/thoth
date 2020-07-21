@@ -20,6 +20,11 @@ wasm:
 		-s 'EXTRA_EXPORTED_RUNTIME_METHODS=["ccall","cwrap"]' \
 		-s EXPORTED_FUNCTIONS="['_main','_get_word','_generate']"
 
+android:
+	# export NDK_PROJECT_PATH="$(pwd)/tools"
+	rm -rf tools/libs tools/obj
+	~/Android/android-ndk-r21/ndk-build APP_STL=c++_static
+
 tools: test cli
 
 test: thoth

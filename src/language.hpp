@@ -20,6 +20,8 @@ namespace thoth{
       void generate_model();
       void novel_syllables(int n);
       //void process_words();
+      unsigned long get_lang_seed();
+      unsigned long get_word_seed();
       void save_model(string filename);
       void load_model(string filename);
       /*void load_words_file(string filename);

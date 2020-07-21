@@ -28,12 +28,12 @@ namespace thoth{
   void init();
 
   // Exception
-  class ThothException:public exception{
+  /*class ThothException:public exception{
     private:
       char* msg;
 
     public:
       ThothException(const char* msg);
       virtual const char* what() const throw();
-  };
+  };*/
 }

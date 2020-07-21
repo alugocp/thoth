@@ -63,6 +63,16 @@ void Language::set_seed(unsigned long seed){
 
 
 
+// Get seeds
+unsigned long Language::get_word_seed(){
+  return word_rand->get_seed();
+}
+unsigned long Language::get_lang_seed(){
+  return rand->get_seed();
+}
+
+
+
 // Debugging
 void Language::print_model(){
   cout << "Language #" << this->rand->get_seed() << "\n";
@@ -79,10 +89,14 @@ void Language::print_syllables(){
 
 // Model file I/O
 void Language::save_model(string filename){
-  if(!modeled) throw ThothException("Cannot save an unmodeled language");
+  /*#ifndef NO_EXCEPTIONS
+    if(!modeled) throw ThothException("Cannot save an unmodeled language");
+  #endif*/
   ofstream out;
   out.open(filename);
-  if(!out.is_open()) throw ThothException("Could not write to file");
+  /*#ifndef NO_EXCEPTIONS
+    if(!out.is_open()) throw ThothException("Could not write to file");
+  #endif*/
   for(auto a=this->model.begin();a!=this->model.end();a++){
     markov_node node=a->second;
     out << "s " << a->first;
@@ -105,7 +119,9 @@ void Language::load_model(string filename){
   char type;
   if(this->modeled) this->clear_model();
   in.open(filename);
-  if(!in.is_open()) throw ThothException("Could not read from file");
+  /*#ifndef NO_EXCEPTIONS
+    if(!in.is_open()) throw ThothException("Could not read from file");
+  #endif*/
   while(getline(in,line)){
     const char* l=line.c_str();
     sscanf(l,"%c %s",&type,buffer);
@@ -133,9 +149,11 @@ void Language::load_model(string filename){
 
 // Model generation
 void Language::generate_model(){
-  if(this->modeled) throw ThothException("Language is already modeled");
-  if(!is_init()) throw ThothException("Library has not been initialized");
-  if(!this->syllables.size()) throw ThothException("Cannot model a language without syllables");
+  /*#ifndef NO_EXCEPTIONS
+    if(this->modeled) throw ThothException("Language is already modeled");
+    if(!is_init()) throw ThothException("Library has not been initialized");
+    if(!this->syllables.size()) throw ThothException("Cannot model a language without syllables");
+  #endif*/
   this->model.clear();
   for(int a=0;a<this->syllables.size();a++){
     string s=this->syllables[a];
@@ -236,7 +254,9 @@ void Language::load_words_file(string filename){
 
 // Word generation
 string Language::new_word(int l){
-  if(!this->modeled) throw ThothException("Unmodeled languages cannot generate words");
+  /*#ifndef NO_EXCEPTIONS
+    if(!this->modeled) throw ThothException("Unmodeled languages cannot generate words");
+  #endif*/
   int i=(this->word_rand->next())%this->model.size();
   auto pair=this->model.begin();
   while(i--) pair++;

@@ -57,7 +57,7 @@ string thoth::word_to_string(string word){
 
 
 // Exceptions
-thoth::ThothException::ThothException(const char* msg){
+/*thoth::ThothException::ThothException(const char* msg){
   size_t l=strlen(msg);
   const char* prefix="Thoth exception (";
   size_t pl=strlen(prefix);
@@ -68,7 +68,7 @@ thoth::ThothException::ThothException(const char* msg){
 }
 const char* thoth::ThothException::what() const throw(){
   return msg;
-}
+}*/
 
 
 

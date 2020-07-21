@@ -1,10 +1,11 @@
 # Thoth
 <img src="thoth.svg" width="250" height="250"/>
-
+<br>
+<br>
 LugoCorp's word generator generator
 
 ## Installation
-Run `./INSTALL` from this directory to install Thoth. This script builds the library, copies the header and shared object files, and even adds Thoth to pkg-config automatically.
+Run `./INSTALL` from this directory to install Thoth. This script builds the library, copies the header and shared object files, and even adds Thoth to pkg-config automatically. You may need root permissions.
 
 ## Todo
 ### Launch
