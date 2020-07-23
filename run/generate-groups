@@ -13,6 +13,7 @@ groups=[
     (1,["j","y","q"]),
     (1,["w","x","q"]),
     (1,["h"]),
+    (2,["a"]),
 ]
 
 # Group processing
@@ -33,8 +34,8 @@ for l in groups:
         model[s].extend(possible)
 
 # C code generation
-print("unordered_map<char,vector<string>> banned;")
-print("void populate_banned(){")
+#print("unordered_map<char,vector<string>> banned;")
+print("static void populate_banned(){")
 for m in model:
     print("\tbanned['%s']={\"%s\"};"%(m,"\",\"".join(model[m])))
 print("}")

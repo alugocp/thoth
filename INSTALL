@@ -14,5 +14,6 @@ fi
 
 # Install files
 cp src/*.hpp $DEST
-cp bin/thoth.so /usr/lib/libthoth.so
+cp bin/libthoth.so /usr/lib/libthoth.so
 cp thoth.pc /usr/lib/pkgconfig
+cp bin/thoth /usr/bin/thoth
