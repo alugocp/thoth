@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             mc:Ignorable="d"
+             x:Class="blank.ArchivePage"
+            BackgroundColor="#33333F" >
+
+    <StackLayout>
+
+        <StackLayout 
+
+            Orientation="Horizontal" 
+            BackgroundColor="#4cb57d" 
+            Padding="30,20,30,20">
+
+            <ffimageloadingsvg:SvgCachedImage 
+                Source="logosvg.svg" 
+                WidthRequest="40" 
+                HeightRequest="40"
+                HorizontalOptions="Center" 
+                Margin="0,0,20,0"/>
+
+            <Label 
+                Text="Thoth Archive" 
+                TextColor="#33333F" 
+                FontSize="25" />
+
+        </StackLayout>
+
+        <ScrollView>
+            <StackLayout
+                x:Name="archived"
+                Margin="10,0,10,10"  
+                Padding="0,10,0,10"
+                VerticalOptions="Center"
+                BackgroundColor="#2D2D39">
+
+            </StackLayout>
+        </ScrollView>
+
+        <StackLayout 
+            Orientation="Horizontal" 
+            VerticalOptions="EndAndExpand" 
+            BackgroundColor="#4cb57d" 
+            Padding="5,5,5,5">
+
+            <StackLayout
+            Orientation="Horizontal" 
+            HorizontalOptions="CenterAndExpand" 
+            Padding="10,10,10,10"
+            BackgroundColor="#4cb57d">
+                <ffimageloadingsvg:SvgCachedImage 
+                        Source="plus.svg" 
+                        WidthRequest="40" 
+                        HeightRequest="40"
+                        HorizontalOptions="CenterAndExpand">
+                    <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SwapToGenerate"></TapGestureRecognizer>
+                    </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
+            </StackLayout>
+
+            <StackLayout 
+            Orientation="Horizontal" 
+            HorizontalOptions="CenterAndExpand"
+            Padding="10,10,10,10"
+            BackgroundColor="#40996a">
+                <ffimageloadingsvg:SvgCachedImage 
+                        Source="folder.svg" 
+                        WidthRequest="40" 
+                        HeightRequest="40"
+                        HorizontalOptions="CenterAndExpand" 
+                        />
+            </StackLayout>
+
+
+            <StackLayout 
+            Orientation="Horizontal" 
+            HorizontalOptions="CenterAndExpand"
+            Padding="10,10,10,10"
+            BackgroundColor="#4cb57d">
+                <ffimageloadingsvg:SvgCachedImage 
+                        Source="moon.svg" 
+                        WidthRequest="40" 
+                        HeightRequest="40"
+                        HorizontalOptions="CenterAndExpand" 
+                        />
+            </StackLayout>
+
+        </StackLayout>
+
+    </StackLayout>
+
+
+</ContentPage>
