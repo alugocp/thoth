@@ -214,7 +214,7 @@ void Language::ensure_syllables(){
         if(nexts.size()) novel+=nexts[(this->rand->next())%nexts.size()];
         else break;
       }
-      this->syllables.push_back(novel);
+      if(novel.size()>=MAX) this->syllables.push_back(novel);
     }
   }
   auto s=this->syllables.begin();

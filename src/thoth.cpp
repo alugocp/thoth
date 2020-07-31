@@ -74,30 +74,26 @@ const char* thoth::ThothException::what() const throw(){
 
 // Initialization
 static void populate_banned(){
-	banned['h']={"h"};
-	banned['j']={"g","q","j","z","{","}","v","f","x","j","y","q"};
-	banned['b']={"bb","bd","db","dd","b","p"};
-	banned['y']={"j","y","q"};
-	banned['{']={"g","q","j","z","{","}","v","f","x"};
-	banned['z']={"g","q","j","z","{","}","v","f","x"};
-	banned['v']={"g","q","j","z","{","}","v","f","x"};
-	banned['n']={"nn","nm","mn","mm"};
-	banned['x']={"g","q","j","z","{","}","v","f","x","w","x","q"};
-	banned['e']={"ii","ie","ei","ee","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
-	banned['a']={"aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu","aa"};
-	banned['w']={"w","x","q"};
-	banned['m']={"nn","nm","mn","mm"};
-	banned['i']={"ii","ie","ei","ee","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+  banned['q']={"g","q","j","z","{","}","v","f","x","q","k","j","y","q","w","x","q"};
+	banned['a']={"aa","ae","ai","ao","au","ea","ee","ei","eo","eu","ia","ie","ii","io","iu","oa","oe","oi","oo","ou","ua","ue","ui","uo","uu"};
 	banned['g']={"g","q","j","z","{","}","v","f","x"};
-	banned['k']={"q","k","cc","ck","kc","kk"};
-	banned['p']={"b","p"};
-	banned['c']={"cc","ck","kc","kk"};
-	banned['f']={"g","q","j","z","{","}","v","f","x"};
-	banned['q']={"g","q","j","z","{","}","v","f","x","q","k","j","y","q","w","x","q"};
-	banned['u']={"oo","ou","uo","uu","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	banned['u']={"aa","ae","ai","ao","au","ea","ee","ei","eo","eu","ia","ie","ii","io","iu","oa","oe","oi","oo","ou","ua","ue","ui","uo","uu"};
+	banned['w']={"w","x","q"};
+	banned['k']={"q","k"};
 	banned['}']={"g","q","j","z","{","}","v","f","x"};
-	banned['d']={"bb","bd","db","dd"};
-	banned['o']={"oo","ou","uo","uu","aaa","aae","aai","aao","aau","aea","aee","aei","aeo","aeu","aia","aie","aii","aio","aiu","aoa","aoe","aoi","aoo","aou","aua","aue","aui","auo","auu","eaa","eae","eai","eao","eau","eea","eee","eei","eeo","eeu","eia","eie","eii","eio","eiu","eoa","eoe","eoi","eoo","eou","eua","eue","eui","euo","euu","iaa","iae","iai","iao","iau","iea","iee","iei","ieo","ieu","iia","iie","iii","iio","iiu","ioa","ioe","ioi","ioo","iou","iua","iue","iui","iuo","iuu","oaa","oae","oai","oao","oau","oea","oee","oei","oeo","oeu","oia","oie","oii","oio","oiu","ooa","ooe","ooi","ooo","oou","oua","oue","oui","ouo","ouu","uaa","uae","uai","uao","uau","uea","uee","uei","ueo","ueu","uia","uie","uii","uio","uiu","uoa","uoe","uoi","uoo","uou","uua","uue","uui","uuo","uuu"};
+	banned['x']={"g","q","j","z","{","}","v","f","x","w","x","q"};
+	banned['b']={"b","p"};
+	banned['{']={"g","q","j","z","{","}","v","f","x"};
+	banned['f']={"g","q","j","z","{","}","v","f","x"};
+	banned['e']={"aa","ae","ai","ao","au","ea","ee","ei","eo","eu","ia","ie","ii","io","iu","oa","oe","oi","oo","ou","ua","ue","ui","uo","uu"};
+	banned['y']={"j","y","q"};
+	banned['j']={"g","q","j","z","{","}","v","f","x","j","y","q"};
+	banned['v']={"g","q","j","z","{","}","v","f","x"};
+	banned['z']={"g","q","j","z","{","}","v","f","x"};
+	banned['h']={"h"};
+	banned['p']={"b","p"};
+	banned['i']={"aa","ae","ai","ao","au","ea","ee","ei","eo","eu","ia","ie","ii","io","iu","oa","oe","oi","oo","ou","ua","ue","ui","uo","uu"};
+	banned['o']={"aa","ae","ai","ao","au","ea","ee","ei","eo","eu","ia","ie","ii","io","iu","oa","oe","oi","oo","ou","ua","ue","ui","uo","uu"};
 }
 bool thoth::is_init(){
   return initialized;
