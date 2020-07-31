@@ -78,22 +78,6 @@ string thoth::word_to_string(string word){
 
 
 
-// Exceptions
-/*thoth::ThothException::ThothException(const char* msg){
-  size_t l=strlen(msg);
-  const char* prefix="Thoth exception (";
-  size_t pl=strlen(prefix);
-  this->msg=new char[l+pl+2];
-  strcpy(this->msg,prefix);
-  strcat(this->msg,msg);
-  strcat(this->msg,")");
-}
-const char* thoth::ThothException::what() const throw(){
-  return msg;
-}*/
-
-
-
 // Initialization
 static void populate_banned(){
   banned['q']={"g","q","j","z","{","}","v","f","x","q","k","j","y","q","w","x","q"};

@@ -1,7 +1,7 @@
-# Thoth
-<img src="thoth-icon.svg" width="250" height="250"/>
-<br>
-<br>
+<img src="./thoth.svg" width="250"/>
+
+## Overview
+**Version** 1.0.0
 
 Thoth is [LugoCorp](http://lugocorp.net)'s procedural word generator library. Use it as a library to generate new words in your own programs or make use of the built-in CLI tool.
 
@@ -47,3 +47,7 @@ The thoth command can be used with `--help` to view all options or with any comb
 ## Todo
 - [ ] Create binary file format and I/O
 - [ ] Sample data pipeline
+- [ ] Add options for accents, dashes, spaces and apostrophes
+- [ ] Restructure header includes for cleaner code
+- [ ] Move away from C++ library for better embedded support
+- [ ] Optimize syllable generation where possible

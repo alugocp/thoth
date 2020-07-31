@@ -48,14 +48,4 @@ namespace thoth{
   // Initialization
   bool is_init();
   void init();
-
-  // Exception
-  /*class ThothException:public exception{
-    private:
-      char* msg;
-
-    public:
-      ThothException(const char* msg);
-      virtual const char* what() const throw();
-  };*/
 }
