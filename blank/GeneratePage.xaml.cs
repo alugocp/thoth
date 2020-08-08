@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace blank
 {
@@ -11,6 +12,8 @@ namespace blank
     [DesignTimeVisible(false)]
     public partial class GeneratePage : ContentPage
     {
+
+        bool originalStyle=true;
         private ThothAPI api;
         int count = 8;
 
@@ -65,6 +68,28 @@ namespace blank
         void SwapToArchive ( object sender, EventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new ArchivePage());
+            
+        }
+
+        private async void ButtonTheme(object sender, EventArgs e){
+            
+
+            ICollection<ResourceDictionary> mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            if (mergedDictionaries != null)
+            {
+            mergedDictionaries.Clear();
+
+            if(originalStyle){
+                    mergedDictionaries.Add(new DarkTheme());
+                    originalStyle=false;
+
+            }
+            else{
+                    mergedDictionaries.Add(new LightTheme());
+                    originalStyle=true;
+            }
+
+            }
         }
     }
 }

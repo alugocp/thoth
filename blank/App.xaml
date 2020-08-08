@@ -5,7 +5,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="blank.App">
+    
+    
+    
     <Application.Resources>
+        <ResourceDictionary Source="DarkTheme.xaml"/>
+        
         <Style TargetType="Label">
             <Setter Property="TextColor" Value="#cccccc" />
             <Setter Property="FontAttributes" Value="Bold" />

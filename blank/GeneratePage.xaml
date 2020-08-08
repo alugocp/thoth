@@ -6,7 +6,7 @@
              xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              mc:Ignorable="d"
              x:Class="blank.GeneratePage"
-            BackgroundColor="#33333F" >
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
 
     <StackLayout>
 
@@ -142,10 +142,14 @@
             Padding="10,10,10,10"
             BackgroundColor="#4cb57d">
                 <ffimageloadingsvg:SvgCachedImage 
-                        Source="moon.svg" 
+                        Source="{DynamicResource themeImage}"
                         WidthRequest="40" 
                         HeightRequest="40"
-                        HorizontalOptions="CenterAndExpand" />
+                        HorizontalOptions="CenterAndExpand">
+                     <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                         <TapGestureRecognizer Tapped="ButtonTheme"></TapGestureRecognizer>
+                        </ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
+                </ffimageloadingsvg:SvgCachedImage>
             </StackLayout>
 
         </StackLayout>
