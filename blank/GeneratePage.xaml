@@ -66,7 +66,7 @@
             </StackLayout>
 
 
-            <Button Margin="30,10,10,10"  Clicked="Generate"  Text="Generate" BorderRadius="5" />
+            <Button Margin="30,10,10,10"  Clicked="GenerateAction"  Text="Generate" BorderRadius="5" />
 
         </StackLayout>
         <ScrollView>
@@ -78,7 +78,7 @@
                 VerticalOptions="Center"
                 BackgroundColor="#2D2D39">
 
-                <StackLayout Orientation="Horizontal">
+                <!--<StackLayout Orientation="Horizontal">
                     <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
                     <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
                 </StackLayout>
@@ -93,12 +93,13 @@
                 <StackLayout Orientation="Horizontal">
                     <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
                     <Label  Text="sflsdf" FontSize="15" HorizontalOptions="CenterAndExpand" />
-                </StackLayout>
+                </StackLayout>-->
 
 
             </StackLayout>
         </ScrollView>
 
+        <Button Margin="30,10,10,10"  Clicked="SaveSeed"  Text="Save Generation Seed" BorderRadius="5" />
 
         <StackLayout 
             Orientation="Horizontal" 

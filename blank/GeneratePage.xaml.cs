@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.Generic;
+using Xamarin.Forms.Internals;
 
 namespace blank
 {
@@ -15,6 +16,7 @@ namespace blank
 
         bool originalStyle=true;
         private ThothAPI api;
+        private Seeds seeds;
         int count = 8;
 
         public GeneratePage()
@@ -22,8 +24,19 @@ namespace blank
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
             picker.TextColor = new Color(204, 204, 204);
-            api=new ThothAPI();
+
+            // Load archive
+            /*String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
+            ArchivedNames.ForEach(name =>{
+                if (name != "")
+                    picker.Items.Add(name);
+            });*/
+
+            seeds = new Seeds();
+            api =new ThothAPI();
             api.new_lang();
+
+            Generate();
         }
         void IncrementCount(object sender, EventArgs e)
         {
@@ -38,12 +51,21 @@ namespace blank
             countLabel.Text = count.ToString();
         }
 
-        void Generate(object sender, EventArgs e)
+        void GenerateAction(object sender, EventArgs e){
+            Generate();
+        }
+        void Generate()
         {
+            //Random rand = new Random();
+            //String key = (picker.SelectedItem == null ? "" : picker.SelectedItem).ToString();
+            //uint[] langSeeds = Preferences.Get("_" + key, "").Split(',').Select( i => Convert.ToUInt32(i)).ToArray();
+
             Task.Run(() => {
 
+                //if (key != "") api.load_lang(langSeeds[0], langSeeds[1]);
+
                 // Call API
-                string[] words = api.new_words(count,6);
+                string[] words = api.new_words(count, 6 );
 
                 // Update UI
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -63,6 +85,24 @@ namespace blank
                 });
             });
 
+        }
+
+        void SaveSeed(object sender, EventArgs e)
+        {
+            Tuple<uint, uint> seed = api.save_lang();
+            /*String saveData = seeds.Item1.ToString() + ',' + seeds.Item2.ToString();
+            String getName = await InputBox(this.Navigation);
+
+            Preferences.Set('_' + getName, saveData);
+            Preferences.Set("Archive", Preferences.Get("Archive", "") + getName + ",");
+
+            String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
+            picker.Items.Clear();
+            ArchivedNames.ForEach(name => {
+                if (name != "")
+                    picker.Items.Add(name);
+            });*/
+            seeds.addSeed(seed.Item1,seed.Item2);
         }
 
         void SwapToArchive ( object sender, EventArgs e)
@@ -90,6 +130,75 @@ namespace blank
             }
 
             }
+        }
+
+        // If it works it works https://forums.xamarin.com/discussion/comment/110002/#Comment_110002
+        public static Task<string> InputBox(INavigation navigation)
+        {
+            // wait in this proc, until user did his input 
+            var tcs = new TaskCompletionSource<string>();
+
+            var lblTitle = new Label { Text = "Name seed:", HorizontalOptions = LayoutOptions.Center, FontAttributes = FontAttributes.Bold };
+            var txtInput = new Entry { Text = "" };
+
+            var btnOk = new Button
+            {
+                Text = "Ok",
+                WidthRequest = 100,
+                BackgroundColor = Color.FromHex("#40996a")
+            };
+            btnOk.Clicked += async (s, e) =>
+            {
+                // close page
+                var result = txtInput.Text;
+                await navigation.PopModalAsync();
+                // pass result
+                tcs.SetResult(result);
+            };
+
+            var btnCancel = new Button
+            {
+                Text = "Cancel",
+                WidthRequest = 100,
+                BackgroundColor = Color.FromHex("#40996a")
+            };
+            btnCancel.Clicked += async (s, e) =>
+            {
+                // close page
+                await navigation.PopModalAsync();
+                // pass empty result
+                tcs.SetResult(null);
+            };
+
+            var slButtons = new StackLayout
+            {
+                Orientation = StackOrientation.Horizontal,
+                Children = { btnOk, btnCancel },
+            };
+
+            var layout = new StackLayout
+            {
+                Padding = new Thickness(0, 40, 0, 0),
+                VerticalOptions = LayoutOptions.StartAndExpand,
+                HorizontalOptions = LayoutOptions.CenterAndExpand,
+                Orientation = StackOrientation.Vertical,
+                Children = { lblTitle, txtInput, slButtons },
+                BackgroundColor = Color.FromHex("#33333F")
+            };
+
+            // create and show page
+            var page = new ContentPage
+            {
+                BackgroundColor = Color.FromHex("#33333F")
+            };
+            page.Content = layout;
+            navigation.PushModalAsync(page);
+            // open keyboard
+            txtInput.Focus();
+
+            // code is waiting her, until result is passed with tcs.SetResult() in btn-Clicked
+            // then proc returns the result
+            return tcs.Task;
         }
     }
 }
