@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using Xamarin.Essentials;
 
+namespace blank{
+
 public class Seeds
 {
     private static string KEY = "seeds";
-    private List<Tuple<uint,uint>> seeds = new List<Tuple<uint, uint>>();
+    private List<Seed> seeds = new List<Seed>();
 
 	public Seeds(){
         string[] s = Preferences.Get(KEY, "").Split(';');
@@ -13,7 +15,8 @@ public class Seeds
         {
             if (!a.Contains(".")) continue;
             string[] b = a.Split('.');
-            Tuple<uint, uint> t = Tuple.Create(uint.Parse(b[0]), uint.Parse(b[1]));
+            if(b.Length!=3) continue;
+            Seed t = new Seed(b[0],uint.Parse(b[1]), uint.Parse(b[2]));
             seeds.Add(t);
             Console.WriteLine(t);
         }
@@ -23,29 +26,34 @@ public class Seeds
         string str = "";
         for (int a = 0; a < seeds.Count; a++) {
             if (a > 0) str += ";";
-            str +=stringify(seeds[a].Item1,seeds[a].Item2);
+            str +=stringify(seeds[a]);
         }
         return str;
     }
 
     // Public interface functions
-    public string stringify(uint l,uint w){
-        return l.ToString()+"."+w.ToString();
+    public string stringify(Seed s){
+        return s.name+"."+s.l.ToString()+"."+s.w.ToString();
     }
-    public List<Tuple<uint,uint>> getSeeds(){
+    public List<Seed> getSeeds(){
         return seeds;
     }
-    public void addSeed(uint l,uint w) {
-        seeds.Add(Tuple.Create(w, l));
+    public void addSeed(string name,uint l,uint w) {
+        addSeed(new Seed(name,l,w));
+    }
+    public void addSeed(Seed s){
+        seeds.Add(s);
         Preferences.Set(KEY, stringify());
     }
     public void removeSeed(uint l,uint w) {
         for (int a = 0; a < seeds.Count; a++) {
-            if(seeds[a].Item1==l && seeds[a].Item2==w){
+            if(seeds[a].l==l && seeds[a].w==w){
                 seeds.RemoveAt(a);
                 break;
             }
         }
         Preferences.Set(KEY, stringify());
     }
+}
+
 }

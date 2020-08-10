@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.Generic;
-using Xamarin.Forms.Internals;
 
 namespace blank
 {
@@ -89,20 +88,8 @@ namespace blank
 
         void SaveSeed(object sender, EventArgs e)
         {
-            Tuple<uint, uint> seed = api.save_lang();
-            /*String saveData = seeds.Item1.ToString() + ',' + seeds.Item2.ToString();
-            String getName = await InputBox(this.Navigation);
-
-            Preferences.Set('_' + getName, saveData);
-            Preferences.Set("Archive", Preferences.Get("Archive", "") + getName + ",");
-
-            String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
-            picker.Items.Clear();
-            ArchivedNames.ForEach(name => {
-                if (name != "")
-                    picker.Items.Add(name);
-            });*/
-            seeds.addSeed(seed.Item1,seed.Item2);
+            Seed seed = api.save_lang();
+            seeds.addSeed(seed);
         }
 
         void SwapToArchive ( object sender, EventArgs e)

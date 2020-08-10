@@ -10,24 +10,22 @@
 
     <StackLayout>
 
+        <!-- Logo header -->
         <StackLayout 
-
             Orientation="Horizontal" 
             BackgroundColor="#4cb57d" 
-            Padding="30,20,30,20">
+            Padding="5,5,5,5">
 
             <ffimageloadingsvg:SvgCachedImage 
                 Source="logosvg.svg" 
-                WidthRequest="40" 
-                HeightRequest="40"
+                WidthRequest="60" 
+                HeightRequest="60"
                 HorizontalOptions="Center" 
-                Margin="0,0,20,0"/>
-
+                Margin="0,0,0,0"/>
             <Label 
-                Text="Thoth Archive" 
+                Text="Thoth" 
                 TextColor="#33333F" 
-                FontSize="25" />
-
+                FontSize="30" />
         </StackLayout>
 
         <ScrollView>
@@ -41,6 +39,7 @@
             </StackLayout>
         </ScrollView>
 
+        <!-- Bottom settings/nav bar -->
         <StackLayout 
             Orientation="Horizontal" 
             VerticalOptions="EndAndExpand" 
@@ -54,8 +53,8 @@
             BackgroundColor="#4cb57d">
                 <ffimageloadingsvg:SvgCachedImage 
                         Source="plus.svg" 
-                        WidthRequest="40" 
-                        HeightRequest="40"
+                        WidthRequest="30" 
+                        HeightRequest="30"
                         HorizontalOptions="CenterAndExpand">
                     <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
                         <TapGestureRecognizer Tapped="SwapToGenerate"></TapGestureRecognizer>
@@ -70,8 +69,8 @@
             BackgroundColor="#40996a">
                 <ffimageloadingsvg:SvgCachedImage 
                         Source="folder.svg" 
-                        WidthRequest="40" 
-                        HeightRequest="40"
+                        WidthRequest="30" 
+                        HeightRequest="30"
                         HorizontalOptions="CenterAndExpand" 
                         />
             </StackLayout>
@@ -84,8 +83,8 @@
             BackgroundColor="#4cb57d">
                 <ffimageloadingsvg:SvgCachedImage 
                         Source="{DynamicResource themeImage}" 
-                        WidthRequest="40" 
-                        HeightRequest="40"
+                        WidthRequest="30" 
+                        HeightRequest="30"
                         HorizontalOptions="CenterAndExpand">
                     <ffimageloadingsvg:SvgCachedImage.GestureRecognizers>
                     <TapGestureRecognizer Tapped="ButtonTheme"></TapGestureRecognizer>

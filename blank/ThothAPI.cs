@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+namespace blank{
+
 class ThothAPI:IDisposable{
+    private string langname;
 
 	public ThothAPI() {
 		wrapped_init();
@@ -18,6 +21,7 @@ class ThothAPI:IDisposable{
         string[] words = new string[n];
         for (int a = 0; a < n; a++) {
             words[a] =Marshal.PtrToStringAnsi(data[a]);
+            if(a==0) langname=words[a];
         }
         return words;
     }
@@ -27,10 +31,10 @@ class ThothAPI:IDisposable{
     public void load_lang(uint l,uint w) {
         wrapped_load_lang(l,w);
     }
-    public Tuple<uint, uint> save_lang() {
+    public Seed save_lang() {
         uint l = wrapped_get_lang_seed();
         uint w = wrapped_get_word_seed();
-        return Tuple.Create(l,w);
+        return new Seed(langname,l,w);
     }
 
 	// Wrapped binary C++ functions
@@ -57,5 +61,7 @@ class ThothAPI:IDisposable{
 	
     [DllImport(DllName, EntryPoint = "thothAPI_free")]
 	private static extern void wrapped_free();
+}
+
 }
 
