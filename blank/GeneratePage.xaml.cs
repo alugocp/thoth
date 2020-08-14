@@ -24,16 +24,15 @@ namespace blank
             NavigationPage.SetHasNavigationBar(this, false);
             picker.TextColor = new Color(204, 204, 204);
 
-            // Load archive
-            /*String[] ArchivedNames = Preferences.Get("Archive", "").Split(',');
-            ArchivedNames.ForEach(name =>{
-                if (name != "")
-                    picker.Items.Add(name);
-            });*/
-
             seeds = new Seeds();
             api =new ThothAPI();
             api.new_lang();
+
+            List<String> options=new List<String>();
+            foreach(Seed s in seeds.getSeeds()){
+                options.Add(s.name);
+            }
+            picker.ItemsSource=options;
 
             Generate();
         }
@@ -51,17 +50,20 @@ namespace blank
         }
 
         void GenerateAction(object sender, EventArgs e){
+            if(picker.SelectedIndex<0){
+                api.new_lang();
+            }
             Generate();
         }
         void Generate()
         {
-            //Random rand = new Random();
-            //String key = (picker.SelectedItem == null ? "" : picker.SelectedItem).ToString();
-            //uint[] langSeeds = Preferences.Get("_" + key, "").Split(',').Select( i => Convert.ToUInt32(i)).ToArray();
 
             Task.Run(() => {
 
-                //if (key != "") api.load_lang(langSeeds[0], langSeeds[1]);
+                if(picker.SelectedIndex>-1){
+                    Seed s=seeds.getSeeds()[picker.SelectedIndex];
+                    api.load_lang(s.l,s.w);
+                }
 
                 // Call API
                 string[] words = api.new_words(count, 6 );
@@ -90,6 +92,12 @@ namespace blank
         {
             Seed seed = api.save_lang();
             seeds.addSeed(seed);
+            List<String> options=new List<String>();
+            foreach(String s in picker.ItemsSource){
+                options.Add(s);
+            }
+            options.Add(seed.name);
+            picker.ItemsSource=options;
         }
 
         void SwapToArchive ( object sender, EventArgs e)

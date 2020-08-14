@@ -12,7 +12,7 @@ class ThothAPI:IDisposable{
 	public void Dispose() {
 		wrapped_free();
 	}
-
+        
 	// Public facing API interface
 	public string[] new_words(int n,int l) {
 		IntPtr ptrs=wrapped_new_words(n,l);
