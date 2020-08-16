@@ -63,6 +63,9 @@
       But don't take my word for it, try it out for yourself!
       Click generate to watch procedural words appear before your very eyes.
     </p>
+    <p>
+      <b>Disclaimer</b> nothing will appear before your eyes if your browser does not support WebAssembly :(
+    </p>
     <button class="generateButton" onClick="generate_words()">
       Generate
     </button>
@@ -105,10 +108,82 @@ int main(int argc,char** argv){
       </p>
     </div>
     <hr>
+
+    <!-- Documentation -->
     <h1>Documentation <span>Learn Thoth</span></h1>
+    <h2 class="entity"><span class="keyword">namespace</span> thoth</h2>
     <p>
-      Unfortunately you can't rush perfection. For now just go off of the example above.
+      This is the namespace for the entire Thoth library.
     </p>
+    <div class="entity-details">
+      <h3 class="entity"><span class="keyword">void</span> init()</h3>
+      <p>
+        You'll need to call this function before using any other Thoth functions or classes.
+        It initializes the ban table so that Thoth knows what syllables are too random-looking.
+      </p>
+    </div>
+    <h2 class="entity"><span class="keyword">class</span> thoth::Language</h2>
+    <p>
+      This class is where all the magic happens!
+    </p>
+    <div class="entity-details">
+      <h3 class="entity">Language()</h3>
+      <p>
+        Initializes a Language object with random language and word seeds.
+      </p>
+      <h3 class="entity">Language(<span class="keyword">unsigned long</span> seed)</h3>
+      <p>
+        Initializes a Language object with a random word seed and specified language seed.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> clear_model()</h3>
+      <p>
+        Resets the Language object to its initial state just after construction.
+        This removes all syllables added by <i>novel_syllables</i> and destroys the word generator created by <i>generate_model</i>.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> generate_model()</h3>
+      <p>
+        Processes a list of syllables into an internal word generator.
+      </p>
+      <h3 class="entity"><span class="keyword">unsigned long</span> get_lang_seed()</h3>
+      <p>
+        Returns the Language object's language seed.
+      </p>
+      <h3 class="entity"><span class="keyword">unsigned long</span> get_word_seed()</h3>
+      <p>
+        Returns the Language object's word seed.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> load_model(<span class="keyword">string</span> filename)</h3>
+      <p>
+        Calls <i>clear_model</i> and then loads the syllables and word generator stored in the file at <i>filename</i>.
+      </p>
+      <h3 class="entity"><span class="keyword">string</span> new_word(<span class="keyword">int</span> l)</h3>
+      <p>
+        Returns a brand new word from the Language's internal word generator.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> novel_syllables(<span class="keyword">int</span> n)</h3>
+      <p>
+        Loads the Language object with <i>n</i> syllables to be used for later word generation.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> print_model()</h3>
+      <p>
+        Prints some internal information on the Language object.
+        This method is used for debugging purposes.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> print_syllables()</h3>
+      <p>
+        Prints all of the Language object's syllables.
+        This method is used for debugging purposes.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> save_model(<span class="keyword">string</span> filename)</h3>
+      <p>
+        Serializes the Language object (including its syllables and word generator) into the file at <i>filename</i>.
+      </p>
+      <h3 class="entity"><span class="keyword">void</span> set_seed(<span class="keyword">unsigned long</span> seed)</h3>
+      <p>
+        Sets the Language object's word seed to the specified number.
+      </p>
+
+    </div>
   </div>
 
   <!-- Footer -->
