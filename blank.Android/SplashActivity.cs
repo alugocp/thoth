@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace blank.Droid
 {
-    [Activity(Label = "SplashActivity", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
+    [Activity(Label = "Thoth", Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)

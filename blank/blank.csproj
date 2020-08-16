@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <AssemblyName>blank</AssemblyName>
+    <RootNamespace>blank</RootNamespace>
+    <Company>LugoCorp, LLC</Company>
+    <Authors>Alex Lugo, Chris Martinez, Eric Robertson</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
