@@ -66,6 +66,9 @@
       left:0%;
       text-align: center;
     }
+    .entity{
+      text-align:left;
+    }
 
     img{
         width:100%;
