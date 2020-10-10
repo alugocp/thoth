@@ -1,11 +1,12 @@
 <img src="./thoth.svg" width="250"/>
+<img src="./thoth-icon.svg" width="250" style="margin:0 50px"/>
 
-## Overview
+# Thoth
 **Version** 1.0.0
 
 Thoth is [LugoCorp](http://lugocorp.net)'s procedural word generator library. Use it as a library to generate new words in your own programs or make use of the built-in CLI tool.
 
-You can find documentation [here](http://lugocorp.net/thoth).
+You can find documentation [here](http://lugocorp.net/products/thoth).
 
 ## Access
 #### Installation
